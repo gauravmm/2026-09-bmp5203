@@ -109,7 +109,12 @@
   ),
 )
 
-#let tok-colors = (rgb("#FFD966"), rgb("#B6D7A8"), rgb("#9FC5E8"), rgb("#EA9999"))
+#let tok-colors = (
+  rgb("#FFD966"),
+  rgb("#B6D7A8"),
+  rgb("#9FC5E8"),
+  rgb("#EA9999"),
+)
 #let tok(n, content) = box(
   fill: tok-colors.at(calc.rem(n, tok-colors.len())),
   inset: (x: 0.2em, y: 0.15em),
@@ -138,23 +143,35 @@
   aside([GPT-5.x Tokenizer], [
     #[
       #set text(font: "DejaVu Sans Mono", size: 0.78em)
-      #tok(0)[Many]#tok(1)[ words]#tok(2)[ map]#tok(3)[ to]#tok(4)[ one]#tok(5)[ token]#tok(6)[,]#tok(7)[ but]#tok(
+      #tok(0)[Many]#tok(1)[ words]#tok(2)[ map]#tok(3)[ to]#tok(4)[ one]#tok(
+        5,
+      )[ token]#tok(6)[,]#tok(7)[ but]#tok(
         8,
-      )[ some]#tok(9)[ don]#tok(10)['t]#tok(11)[:]#tok(12)[ indiv]#tok(13)[isible]#tok(14)[.]
+      )[ some]#tok(9)[ don]#tok(10)['t]#tok(11)[:]#tok(12)[ indiv]#tok(
+        13,
+      )[isible]#tok(14)[.]
 
       #v(0.4em)
-      #tok(0)[Unicode]#tok(1)[ characters]#tok(2)[ like]#tok(3)[ emojis]#tok(4)[ may]#tok(5)[ be]#tok(
+      #tok(0)[Unicode]#tok(1)[ characters]#tok(2)[ like]#tok(3)[ emojis]#tok(
+        4,
+      )[ may]#tok(5)[ be]#tok(
         6,
       )[ split]#tok(
         7,
-      )[ into]#tok(8)[ many]#tok(9)[ tokens]#tok(10)[ containing]#tok(11)[ the]#tok(12)[ underlying]#tok(
+      )[ into]#tok(8)[ many]#tok(9)[ tokens]#tok(10)[ containing]#tok(
+        11,
+      )[ the]#tok(12)[ underlying]#tok(
         13,
       )[ bytes]#tok(14)[:]#tok(15)[ ◆]#tok(16)[◆]#tok(17)[◆]#tok(18)[◆]
 
       #v(0.4em)
-      #tok(0)[Sequences]#tok(1)[ of]#tok(2)[ characters]#tok(3)[ commonly]#tok(4)[ found]#tok(5)[ next]#tok(6)[ to]#tok(
+      #tok(0)[Sequences]#tok(1)[ of]#tok(2)[ characters]#tok(3)[ commonly]#tok(
+        4,
+      )[ found]#tok(5)[ next]#tok(6)[ to]#tok(
         7,
-      )[ each]#tok(8)[ other]#tok(9)[ may]#tok(10)[ be]#tok(11)[ grouped]#tok(12)[ together]#tok(13)[:]#tok(
+      )[ each]#tok(8)[ other]#tok(9)[ may]#tok(10)[ be]#tok(11)[ grouped]#tok(
+        12,
+      )[ together]#tok(13)[:]#tok(
         14,
       )[123]#tok(
         15,
@@ -186,7 +203,9 @@
   if calc.rem(total-3, 10) != 0 {
     let whole = calc.floor(total-3 / 1000)
     let frac = calc.rem(total-3, 1000)
-    let frac-str = if frac < 10 { "00" + str(frac) } else if frac < 100 { "0" + str(frac) } else { str(frac) }
+    let frac-str = if frac < 10 { "00" + str(frac) } else if frac < 100 {
+      "0" + str(frac)
+    } else { str(frac) }
     "$" + str(whole) + "." + frac-str
   } else {
     let total-2 = calc.round(v * 100)
@@ -206,7 +225,10 @@
 ]
 #let no = text(fill: luma(190))[—]
 
-#slide(config: config-page(margin: (top: 0em, bottom: 1.5em, x: 2em), header: none))[
+#slide(config: config-page(
+  margin: (top: 0em, bottom: 1.5em, x: 2em),
+  header: none,
+))[
   // Keep every later slide's number unchanged even though this one has no `==` heading.
   #counter(heading).step(level: 2)
   #block(width: 100%, height: 100%)[
@@ -215,9 +237,17 @@
     #table(
       columns: (42mm, 1fr, 1fr, 1fr, 1fr),
       rows: auto,
-      align: (left + horizon, left + horizon, left + horizon, left + horizon, left + horizon),
+      align: (
+        left + horizon,
+        left + horizon,
+        left + horizon,
+        left + horizon,
+        left + horizon,
+      ),
       stroke: none,
-      fill: (_, row) => if row == 0 { luma(220) } else if calc.odd(row) { luma(245) } else { white },
+      fill: (_, row) => if row == 0 { luma(220) } else if calc.odd(row) {
+        luma(245)
+      } else { white },
       inset: (x: 0.6em, y: 0.32em),
       table.header(
         [*Lab*],
@@ -304,7 +334,11 @@
           )[
             #text(size: 0.65em, fill: luma(140))[Self-hosted]\
             #text(weight: "bold", size: 0.8em)[Qwen 3.8 27B]\
-            #text(weight: "bold", size: 0.9em, fill: rgb("#2E7D32"))[\$0.00 / \$0.02]\
+            #text(
+              weight: "bold",
+              size: 0.9em,
+              fill: rgb("#2E7D32"),
+            )[\$0.00 / \$0.02]\
           ]
         ]
       ]

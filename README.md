@@ -15,7 +15,7 @@ Typst 0.15+, Touying 0.7.4, metropolis theme. Same helpers as `../agentic-ai-tut
 
 ## Layout
 
-```
+```text
 slides.typ            entry + theme
 common.typ            gblock / lblock / bars / stubs
 sections/             one file per act, with its images in a folder of the same name

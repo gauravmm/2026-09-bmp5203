@@ -65,7 +65,7 @@ Implications:
 Required trio, and how they lock:
 
 | Piece | Job in this room |
-|---|---|
+| --- | --- |
 | MBA-student disease | Names the failure mode this audience is trained into. |
 | Chesterton's Fence | The test before you change a process *or* automate it. |
 | How to use AI in business | The only legal way to put AI in: business question → model → policy someone will run. |
@@ -83,7 +83,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 *First half: how firms fail. Hinge: don't get drunk on the frameworks I just gave you. Second half: how to put AI in without inventing a strategy out of a data bug.*
 
 | Block | Min | Content |
-|------:|----:|---|
+| ------: | ----: | --- |
 | Open | 5 | Bio, BMP5203 frame, agenda. |
 | Filters, compressed | 18 | Failure is default. Stages in one slide. The six filters. One pass of "which stages you see." |
 | Case: Juicero + why $120M | 10 | Idea-filter questions. Investor chain and fad, lightly. |
@@ -110,7 +110,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 *The lecture is Chesterton's Fence applied to strategy and to AI. Filters and cases are how you learn why a fence is there. Agents are how you knock a hundred fences down before lunch.*
 
 | Block | Min | Content |
-|------:|----:|---|
+| ------: | ----: | --- |
 | Open + Hayek | 6 | Bio. Civilization runs on knowledge you do not possess. Today's question: when are you allowed to change a system, and when are you allowed to let a model change it? |
 | **MBA disease + Chesterton** | 12 | Symptoms first, aimed at this room. Cattle/hogs. The cure list is the rest of the hour's method. |
 | Filters as fences | 14 | Six filters, recast: each is a reason the previous "obvious fix" was wrong. Stages only as context for which fences you can even see. |
@@ -137,7 +137,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 *Assume they already know firms are hard. Spend the hour on putting AI into an existing business without lying to yourself.*
 
 | Block | Min | Content |
-|------:|----:|---|
+| ------: | ----: | --- |
 | Open | 4 | Bio. Not a founding lecture. A deployment lecture. |
 | **MBA disease + Chesterton** | 10 | Same slide, aimed at transformation programmes. |
 | Filters in one pass | 8 | Only as a map of *where* AI usually gets inserted (discovery vs expanding vs defending). |
@@ -163,7 +163,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 *Teach only through failures. Extract the required ideas from the cases instead of stating them first.*
 
 | Block | Min | Content |
-|------:|----:|---|
+| ------: | ----: | --- |
 | Open | 4 | Success is a lousy teacher. |
 | Juicero | 12 | Idea filter. Then: this is MBA disease (frameworks and a raise as proof). |
 | WebVan + MAN | 12 | Discovery filter. CAPEX you cannot earn back. |
@@ -201,7 +201,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 ### 4.2 What looks important and is not, here
 
 | Tempting | Why it loses |
-|---|---|
+| --- | --- |
 | Full great-filter build (six card-grid slides) | In BSE3713 this is the course. Here it is vocabulary. One slide plus use-in-anger is enough. |
 | Exit plan matrix, rounds, dilution | Founder mechanics. Wrong course. |
 | Empire vs exit, missionary vs mercenary | Good identity slides, weak on AI and on competitive strategy. |

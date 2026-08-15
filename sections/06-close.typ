@@ -85,7 +85,12 @@
   ],
   [
     #block(radius: 0.3em, clip: true, width: 100%)[
-      #image("06-close/docusign-lovable.png", width: 100%, height: 10.4cm, fit: "cover")
+      #image(
+        "06-close/docusign-lovable.png",
+        width: 100%,
+        height: 10.4cm,
+        fit: "cover",
+      )
     ]
     #v(0.35em)
     #align(center)[_What's their moat?_]
@@ -115,17 +120,23 @@
     lblock(inset: 0.75em, outset: 0pt)[
       #text(weight: "bold")[X API, 2023]
       #v(0.3em)
-      #text(size: 0.82em)[Access restricted. Social-analytics and bot startups vanished overnight.]
+      #text(
+        size: 0.82em,
+      )[Access restricted. Social-analytics and bot startups vanished overnight.]
     ],
     lblock(inset: 0.75em, outset: 0pt)[
       #text(weight: "bold")[ChatGPT vs Jasper]
       #v(0.3em)
-      #text(size: 0.82em)[Free ChatGPT undercut Jasper's automated marketing tools.]
+      #text(
+        size: 0.82em,
+      )[Free ChatGPT undercut Jasper's automated marketing tools.]
     ],
     lblock(inset: 0.75em, outset: 0pt)[
       #text(weight: "bold")[Google Maps, 2018]
       #v(0.3em)
-      #text(size: 0.82em)[API price hike hit fitness apps, travel services, and property.]
+      #text(
+        size: 0.82em,
+      )[API price hike hit fitness apps, travel services, and property.]
     ],
   )
 ]
@@ -160,7 +171,9 @@
     ]
 
     #v(0.55em)
-    #text(size: 0.9em)[Forecast from first principles, not from today's sticker.]
+    #text(
+      size: 0.9em,
+    )[Forecast from first principles, not from today's sticker.]
 
     #v(0.55em)
     #gblock(inset: 0.7em, outset: 0pt)[
@@ -208,14 +221,20 @@
     - Don't be an "LLM-wrapper"
     - Expect rising cost and aggressive competition
     - Models are CAPEX
-      #text(size: 0.82em, fill: luma(80))[Expensive. They depreciate. They need data and maintenance.]
+      #text(
+        size: 0.82em,
+        fill: luma(80),
+      )[Expensive. They depreciate. They need data and maintenance.]
     - Institutional buy-in is the biggest hurdle.
     - Risk surface is greatly amplified — manage it well. #pause
   ],
   // QR plus its call to action, boxed together so they read as one card
   lblock(inset: (x: 1.2em, y: 1.2em), outset: 0pt, width: auto)[
     #align(center)[
-      #qrcode("https://gauravmanek.com/lectures/2026/nus-bmp5203-decision-making-business-ai/", width: 8.2cm)
+      #qrcode(
+        "https://gauravmanek.com/lectures/2026/nus-bmp5203-decision-making-business-ai/",
+        width: 8.2cm,
+      )
       #v(-0.2em)
       #text(weight: "bold")[Slides and reading list]
       #v(-0.6em)

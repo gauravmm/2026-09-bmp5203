@@ -7,7 +7,12 @@
 // larger title and the section number styled like the principle index
 // (big, bold, grey). Wire in via the theme:
 //   #show: metropolis-theme.with(config-common(new-section-slide-fn: big-section-slide), ...)
-#let big-section-slide(config: (:), level: 1, numbered: true, body) = touying-slide-wrapper(self => {
+#let big-section-slide(
+  config: (:),
+  level: 1,
+  numbered: true,
+  body,
+) = touying-slide-wrapper(self => {
   let slide-body = {
     set std.align(horizon)
     show: pad.with(x: 12%, y: 20%)
@@ -17,7 +22,11 @@
       #utils.display-current-heading(
         level: level,
         numbered: numbered,
-        style: (setting: body => body, numbered: true, current-heading) => setting({
+        style: (
+          setting: body => body,
+          numbered: true,
+          current-heading,
+        ) => setting({
           if numbered and current-heading.numbering != none {
             numbering(
               current-heading.numbering,
@@ -30,7 +39,11 @@
     let section-title = utils.display-current-heading(
       level: level,
       numbered: numbered,
-      style: (setting: body => body, numbered: true, current-heading) => setting(
+      style: (
+        setting: body => body,
+        numbered: true,
+        current-heading,
+      ) => setting(
         current-heading.body,
       ),
     )
@@ -49,7 +62,11 @@
           height: 2pt,
           width: 100%,
           spacing: 0pt,
-          components.progress-bar(height: 2pt, self.colors.primary, self.colors.primary-light),
+          components.progress-bar(
+            height: 2pt,
+            self.colors.primary,
+            self.colors.primary-light,
+          ),
         ),
       ),
     )
@@ -65,7 +82,9 @@
       },
     )
   }
-  self = utils.merge-dicts(self, config-page(fill: self.colors.neutral-lightest))
+  self = utils.merge-dicts(self, config-page(
+    fill: self.colors.neutral-lightest,
+  ))
   touying-slide(self: self, config: config, slide-body)
 })
 
@@ -218,7 +237,14 @@
 )
 
 // The six startup stages, in order. Also the column basis for `stage-strip`.
-#let stages = ("Idea", "Prototyping", "Go-to-market", "Early Growth", "Growth", "Maturity")
+#let stages = (
+  "Idea",
+  "Prototyping",
+  "Go-to-market",
+  "Early Growth",
+  "Growth",
+  "Maturity",
+)
 
 // Column track for anything that must line up under `stage-strip`:
 // six equal stage columns plus the arrowhead's own column. Pair it with
@@ -299,7 +325,9 @@
   grid(
     columns: stage-cols,
     column-gutter: 0.3em,
-    ..range(stages.len() + 1).map(j => if j == i { align(center, caret) } else { [] })
+    ..range(stages.len() + 1).map(j => if j == i { align(center, caret) } else {
+      []
+    })
   )
   // ponytail: half-width box hugs the side the caret is on, so the caret always
   // lands over it without having to solve for the column centre
@@ -308,7 +336,9 @@
     spacing: 0pt,
     align(
       if i != none and i >= stages.len() / 2 { right } else { left },
-      box(width: width, fill: fill, radius: 0.3em, inset: 0.9em)[#align(left)[#body]],
+      box(width: width, fill: fill, radius: 0.3em, inset: 0.9em)[#align(
+        left,
+      )[#body]],
     ),
   )
 }

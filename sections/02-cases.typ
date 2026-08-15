@@ -1,6 +1,9 @@
 #import "@preview/touying:0.7.4": *
 #import "@preview/cetz:0.3.4": canvas, draw
-#import "/common.typ": accent, failure-stats, filter-card, gblock, lblock, section-quote, stage-cols, staged
+#import "/common.typ": (
+  accent, failure-stats, filter-card, gblock, lblock, section-quote, stage-cols,
+  staged,
+)
 
 = What do investors look for?
 
@@ -43,7 +46,11 @@
 // rest of the deck — which is also why it is a `#slide` call and not a `==`
 // heading.
 #let bleed-slide(body) = touying-slide-wrapper(self => {
-  self = utils.merge-dicts(self, config-page(margin: 0em, header: none, footer: none))
+  self = utils.merge-dicts(self, config-page(
+    margin: 0em,
+    header: none,
+    footer: none,
+  ))
   touying-slide(self: self, body)
 })
 
@@ -51,7 +58,12 @@
 == Case Study: Juicero
 
 #place(top + left, dx: -30mm, dy: -6mm)[
-  #image("02-cases/juicero-guardian.png", width: 120%, height: 120%, fit: "cover")
+  #image(
+    "02-cases/juicero-guardian.png",
+    width: 120%,
+    height: 120%,
+    fit: "cover",
+  )
 ]
 
 #pause
@@ -124,10 +136,16 @@
   // Money out, money back: principal flows right, returns flow left.
   let fat = (paint: accent, thickness: 7pt)
   let fat-head = (end: ">", fill: accent, scale: 0.9)
-  content((6.9, -4.0), anchor: "east", text(size: 1em, weight: "bold")[Principal])
+  content((6.9, -4.0), anchor: "east", text(
+    size: 1em,
+    weight: "bold",
+  )[Principal])
   line((7.15, -4.0), (16.3, -4.0), stroke: fat, mark: fat-head)
   line((16.3, -4.75), (7.15, -4.75), stroke: fat, mark: fat-head)
-  content((16.55, -4.75), anchor: "west", text(size: 1em, weight: "bold")[Return])
+  content((16.55, -4.75), anchor: "west", text(
+    size: 1em,
+    weight: "bold",
+  )[Return])
 })
 
 #align(horizon)[

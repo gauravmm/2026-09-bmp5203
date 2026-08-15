@@ -13,7 +13,7 @@ Course: BSE3713 (source material)
 ## Part 0 — Opening
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 1 | Title | Decision-Making in AI Startups |
 | 2 | Content | About Dr Gaurav Manek |
 | 3 | Agenda | Four-part lecture map |
@@ -21,7 +21,7 @@ Course: BSE3713 (source material)
 ## Part 1 — Starting up a Company
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 4 | Quote | Starting a company (Elon Musk) |
 | 5 | Data | Startups tend to fail — survival rates and causes |
 | 6 | Data | Startups tend to fail — how do we de-risk these? |
@@ -52,7 +52,7 @@ Course: BSE3713 (source material)
 ## Part 2 — Case Studies
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 30 | Section divider | Intermission: Case Studies |
 | 31 | Quote | Success is a lousy teacher (Bill Gates) |
 | 32 | Content | Filter: Idea — four questions |
@@ -81,7 +81,7 @@ Course: BSE3713 (source material)
 ## Part 3 — What is AI?
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 54 | Section divider | Intermission: What is AI? |
 | 55 | Quote | Building something more intelligent than ourselves (Hinton) |
 | 56 | Content | AI / ML / NN / SaaS definitions |
@@ -96,7 +96,7 @@ Course: BSE3713 (source material)
 ## Part 4 — SaaS & AI Startups
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 64 | Section divider | Intermission: Specifics of AI & SaaS startups |
 | 65 | Quote | Civilization rests on knowledge we do not possess (Hayek) |
 | 66 | Comparison | MBA-student disease and Chesterton’s fence |
@@ -115,7 +115,7 @@ Course: BSE3713 (source material)
 ## Close
 
 | Slide | Type | Topic |
-|------:|------|-------|
+| ------: | ------ | ------- |
 | 78 | Quote | In summary — Pascal on length |
 | 79 | Content | When working *on* AI |
 | 80 | Content | When working in a startup |

@@ -31,8 +31,15 @@
   radius: 0.35em,
   inset: (x: 0.6em, y: 0.5em),
 )[
-  #let tag = text(size: 0.62em, weight: "bold", fill: color, tracking: 0.1em)[#name]
-  #stack(dir: ttb, spacing: 0.45em, ..if tag-align == top { (tag, body) } else { (body, tag) })
+  #let tag = text(
+    size: 0.62em,
+    weight: "bold",
+    fill: color,
+    tracking: 0.1em,
+  )[#name]
+  #stack(dir: ttb, spacing: 0.45em, ..if tag-align == top { (tag, body) } else {
+    (body, tag)
+  })
 ]
 
 #let comp-color = rgb("#7B5EA7")

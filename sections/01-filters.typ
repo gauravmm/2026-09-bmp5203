@@ -1,5 +1,8 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": accent, failure-stats, filter-card, gblock, hbar, lblock, section-quote, stage-callout, stage-cols, staged
+#import "/common.typ": (
+  accent, failure-stats, filter-card, gblock, hbar, lblock, section-quote,
+  stage-callout, stage-cols, staged,
+)
 
 #let band(label, fill, stroke: 0.55pt + luma(190), height: 2.2em) = box(
   width: 100%,
@@ -21,7 +24,12 @@
         ..range(i).map(_ => []),
         grid.cell(
           colspan: span,
-          band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 1.6em),
+          band(
+            label,
+            accent.lighten(80%),
+            stroke: 0.8pt + accent,
+            height: 1.6em,
+          ),
         ),
         ..range(6 - i - span).map(_ => []),
       )
@@ -201,7 +209,11 @@
     #box(
       width: 100%,
       height: 0.7em,
-      stroke: (left: 1.2pt + accent, right: 1.2pt + accent, bottom: 1.2pt + accent),
+      stroke: (
+        left: 1.2pt + accent,
+        right: 1.2pt + accent,
+        bottom: 1.2pt + accent,
+      ),
     )
     #v(0.15em)
     #align(center, text(size: 0.8em, weight: "bold")[The funding gap.])

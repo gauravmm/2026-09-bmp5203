@@ -3,7 +3,9 @@
 
 // Came over with the imported slides; only this section uses it.
 #let similar(items) = lblock(inset: (x: 0.6em, y: 0.4em), outset: 0pt)[
-  #text(size: 0.85em, fill: luma(80))[#text(weight: "bold")[Other examples] --- #items]
+  #text(size: 0.85em, fill: luma(80))[#text(
+      weight: "bold",
+    )[Other examples] --- #items]
 ]
 
 = Agents in the wild
@@ -23,7 +25,10 @@
   //   2. copilot bullets — #meanwhile rewinds it back to subslide 1,
   //      so logo + bullets reveal together
   //   3. #pause → openclaw logo + bullets (subslide 2)
-  grid.cell(x: 0, y: 0, align: bottom, image("05-wild/copilot.png", width: 90%)),
+  grid.cell(x: 0, y: 0, align: bottom, image(
+    "05-wild/copilot.png",
+    width: 90%,
+  )),
   grid.cell(x: 0, y: 1)[
     #meanwhile
     - Started as inline autocomplete
@@ -38,7 +43,10 @@
 
     #pause
   ],
-  grid.cell(x: 1, y: 0, align: bottom, image("05-wild/openclaw-logo-text-dark.png", width: 90%)),
+  grid.cell(x: 1, y: 0, align: bottom, image(
+    "05-wild/openclaw-logo-text-dark.png",
+    width: 90%,
+  )),
   grid.cell(x: 1, y: 1)[
     - Personal AI agent
     - Runs on your machine; triggered via *messaging apps*
@@ -77,7 +85,9 @@
   gutter: 1.5em,
   align: top,
   [
-    #box(baseline: 0.45em, image("05-wild/jpmorgan.png", height: 1.6em)) #h(0.4em) #text(
+    #box(baseline: 0.45em, image("05-wild/jpmorgan.png", height: 1.6em)) #h(
+      0.4em,
+    ) #text(
       weight: "bold",
       size: 1.3em,
     )[Ask D.A.V.I.D.]\
@@ -142,7 +152,10 @@
   [
     #image("05-wild/sakana.svg", height: 2cm)
     #v(0em)
-    #text(size: 0.9em, fill: luma(100))[AI Scientist caught specification gaming]
+    #text(
+      size: 0.9em,
+      fill: luma(100),
+    )[AI Scientist caught specification gaming]
 
     #v(0.3em)
     - Autonomous research agent --- writes, runs, evaluates experiments
