@@ -70,12 +70,12 @@
   ],
   align(horizon)[
     #lblock(inset: (x: 0.9em, y: 0.8em), outset: 0pt)[
-      *90 minutes.* Interrupt me --- questions are better than my notes.
+      *90 minutes.*
 
-      #v(0.5em)
+      Interrupt me with questions.
+
       #text(size: 0.85em, fill: luma(80))[
-        Slides and reading list are on the last slide, or at
-        #link("https://gauravmanek.com/lectures")[gauravmanek.com/lectures].
+        Slides, reading list, and lecture video will be available at the end.
       ]
     ]
   ],

@@ -293,8 +293,8 @@
     // At 90W (worst measured) output is $0.025/M; even at 200W (max load STH could
     // provoke, not inference) it is only $0.055/M — the conclusion is insensitive to this.
     // Lands over the last two Cost-efficient cells — they're read on subslide 1, then covered.
-    #only("2-")[
-      #place(bottom + right, dx: -6mm, dy: 4mm)[
+    #[
+      #place(bottom + right, dx: 8mm, dy: 2mm)[
         #rotate(-4deg, origin: center + horizon)[
           #box(
             fill: white,

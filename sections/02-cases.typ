@@ -56,7 +56,7 @@
 
 #pause
 #place(bottom + right, dx: 1em, dy: -1em)[
-  #text(size: 1.9em, weight: "bold")[How did they\ raise \$120M?]
+  #text(size: 1.9em)[*How did they\ raise \$120M?*]
 ]
 
 
