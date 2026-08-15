@@ -1,5 +1,5 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote, stage-callout, stage-cols, staged
+#import "/common.typ": accent, failure-stats, filter-card, gblock, hbar, lblock, section-quote, stage-callout, stage-cols, staged
 
 #let band(label, fill, stroke: 0.55pt + luma(190), height: 2.2em) = box(
   width: 100%,
@@ -29,7 +29,7 @@
     .flatten()
 }
 
-= How firms fail
+= From idea to exit
 
 #section-quote[Starting a company is like staring into the abyss and eating glass.][Elon Musk]
 
@@ -43,69 +43,7 @@
 
 == Startups tend to fail
 
-#let pct(n) = [
-  #text(size: 4em)[#n]#text(size: 1.0em, baseline: -1.6em)[%]
-]
-
-#let survival = grid(
-  columns: (auto, auto),
-  column-gutter: 0.45em,
-  row-gutter: 1.5em,
-  align: (right + horizon, left + horizon),
-  ..(([1 year], 20), ([3 years], 39), ([5 years], 50), ([10 years], 65))
-    .map(((l, n)) => (text(size: 1em)[#l], pct(n)))
-    .flatten()
-)
-
-#let causes = grid(
-  columns: (auto, auto),
-  column-gutter: 0.45em,
-  row-gutter: 1.0em,
-  align: (right + horizon, left + horizon),
-  ..(
-    (38, [Financial Issues]),
-    (35, [Lack of Market Need]),
-    (20, [Competition]),
-    (19, [Business Model]),
-    (18, [Legal Challenges]),
-  )
-    .map(((n, l)) => (pct(n), text(size: 1em)[#l]))
-    .flatten()
-)
-
-// ponytail: bracket measures the taller column so it tracks the chart's own height
-#let bracket(side) = context {
-  let s = 1.2pt + accent
-  box(
-    width: 0.5em,
-    height: calc.max(measure(survival).height, measure(causes).height),
-    stroke: (top: s, bottom: s) + side,
-  )
-}
-
-#grid(
-  columns: (auto, auto, auto, auto, auto, 1fr),
-  column-gutter: 0.6em,
-  align: horizon,
-  align(right, survival),
-  bracket((right: 1.2pt + accent)),
-  [because],
-  bracket((left: 1.2pt + accent)),
-  align(left, causes),
-  // ponytail: aside rides in the leftover column, so the chart keeps its own metrics
-  align(center)[
-    #uncover("2-")[
-      #gblock[_How do we de-risk these?_]
-    ]
-  ],
-)
-
-#align(bottom + right)[
-  #text(size: 0.62em, fill: luma(110))[
-    Numbers from the US. See
-    #link("https://www.forbes.com/advisor/business/software/startups-failure-rate/")[forbes.com/advisor/business/software/startups-failure-rate/].
-  ]
-]
+#failure-stats(aside: uncover("2-", gblock[_How do we de-risk these?_]))
 
 #speaker-note[
   - As a startup you are always teetering between life and death
@@ -193,6 +131,7 @@
   - We focus on the first half
 ]
 
+/*
 == Which stages you see
 
 #show: staged.with(active: none)
@@ -244,6 +183,7 @@
   - Founding employees see the middle
   - Ordinary employees usually only see late stages, once the firm is already large
 ]
+*/
 
 == The Funding Gap
 
@@ -349,6 +289,7 @@ What do you trade for investment?
   - You are almost always the less-informed party at the table
 ]
 
+/*
 == The exit plan
 
 #show: staged
@@ -419,80 +360,4 @@ What do you trade for investment?
   - IPO, dividends and private equity only at maturity
   - Tag-along lets you sell on the same terms as the majority; drag-along forces you to
 ]
-
-== The Great Filters
-
-#show: staged
-
-// One column per stage, revealed left to right; each filter is the gate that
-// stage has to pass.
-#text(size: 1em)[
-  #grid(
-    columns: stage-cols,
-    column-gutter: 0.3em,
-    ..(
-      (
-        [Validation],
-        (
-          [Is the problem worth solving?],
-          [Does it solve the problem?],
-          [Can you collect money?],
-        ),
-      ),
-      (
-        [Customer Discovery],
-        (
-          [Will someone actually pay?],
-          [Can someone pay for it? (The M.A.N.)],
-          [Other than the product, what do you need?],
-          [Will your team fall apart?],
-        ),
-      ),
-      (
-        [Product--Market Fit],
-        (
-          [Do enough people have the same problem to pay for it?],
-          [Are you able to consistently sell?],
-          [What minor changes can I make to sell more?],
-        ),
-      ),
-      (
-        [Expanding Everything],
-        (
-          [How to build sales channels and marketing?],
-          [How to scale production, operations, and distribution?],
-          [How to set prices?],
-        ),
-      ),
-      (
-        [Market Segments],
-        (
-          [How to add new market segments? (The bowling-alley model)],
-        ),
-      ),
-      (
-        [Defending Position],
-        (
-          [How to grow at CAGR?],
-          [How to avoid complacency?],
-          [How to defend against large players?],
-          [How not to be disrupted?],
-          [How to create shareholder value?],
-        ),
-      ),
-    )
-      .enumerate()
-      .map(((i, f)) => uncover(str(i + 1) + "-", filter-card(..f))),
-    [],
-  )
-]
-
-#speaker-note[
-  - Great filters a startup has to pass, one after another. Earlier filters stay in force
-  - Validation: is the problem worth solving, does the idea actually solve it, can you collect money?
-  - Customer Discovery: will someone actually pay? Can they pay --- M.A.N. of money, authority, and need? What else do you need besides the product? Will the team fall apart?
-  - Product--Market Fit: enough people with the same problem who will pay? Consistent sales? What minor changes would let you sell more?
-  - Expanding Everything: sales channels and marketing; scale production, ops, distribution; how you set prices. A working product becomes an operating company
-  - Market Segments: how do you add a new segment? Bowling-alley model --- knock down one pin, then the next adjacent one, not the whole lane at once
-  - Defending Position: CAGR, complacency, large players, disruption, shareholder value
-]
+*/

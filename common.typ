@@ -138,6 +138,71 @@
   align(right, text(size: 0.82em, weight: "bold")[#pct%]),
 )
 
+// Survival rates "because" failure causes, with the source note. Used twice:
+// once when introducing failure, once when coming back to it. `aside` rides in
+// the spare column on the right — pass an `uncover(..)` to reveal a question.
+#let failure-stats(aside: none) = {
+  let pct(n) = [
+    #text(size: 4em)[#n]#text(size: 1.0em, baseline: -1.6em)[%]
+  ]
+
+  let survival = grid(
+    columns: (auto, auto),
+    column-gutter: 0.45em,
+    row-gutter: 1.5em,
+    align: (right + horizon, left + horizon),
+    ..(([1 year], 20), ([3 years], 39), ([5 years], 50), ([10 years], 65))
+      .map(((l, n)) => (text(size: 1em)[#l], pct(n)))
+      .flatten()
+  )
+
+  let causes = grid(
+    columns: (auto, auto),
+    column-gutter: 0.45em,
+    row-gutter: 1.0em,
+    align: (right + horizon, left + horizon),
+    ..(
+      (38, [Financial Issues]),
+      (35, [Lack of Market Need]),
+      (20, [Competition]),
+      (19, [Business Model]),
+      (18, [Legal Challenges]),
+    )
+      .map(((n, l)) => (pct(n), text(size: 1em)[#l]))
+      .flatten()
+  )
+
+  // ponytail: bracket measures the taller column so it tracks the chart's own height
+  let bracket(side) = context {
+    let s = 1.2pt + accent
+    box(
+      width: 0.5em,
+      height: calc.max(measure(survival).height, measure(causes).height),
+      stroke: (top: s, bottom: s) + side,
+    )
+  }
+
+  grid(
+    columns: (auto, auto, auto, auto, auto, 1fr),
+    column-gutter: 0.6em,
+    align: horizon,
+    align(right, survival),
+    bracket((right: 1.2pt + accent)),
+    [because],
+    bracket((left: 1.2pt + accent)),
+    align(left, causes),
+    // ponytail: aside rides in the leftover column, so the chart keeps its own metrics
+    align(center, aside),
+  )
+
+  align(bottom + right)[
+    #text(size: 0.62em, fill: luma(110))[
+      Numbers from the US. See
+      #link("https://www.forbes.com/advisor/business/software/startups-failure-rate/")[forbes.com/advisor/business/software/startups-failure-rate/].
+    ]
+  ]
+}
+
 // Card used in the great-filters grid.
 // Two rows: title row is fixed-height and bottom-aligned so titles sit on a
 // common baseline whether they wrap to one line or two.

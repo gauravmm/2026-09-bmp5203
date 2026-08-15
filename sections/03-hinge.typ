@@ -1,21 +1,7 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, accent, section-quote
+#import "/common.typ": accent, gblock, lblock, section-quote
 
-#let cmp-col(title, items, fill: luma(90), stroke: 0.5pt + luma(220)) = block(
-  fill: white,
-  stroke: stroke,
-  radius: 0.4em,
-  inset: (x: 0.75em, y: 0.65em),
-  width: 100%,
-  height: 100%,
-)[
-  #set align(top + left)
-  #text(weight: "bold", size: 0.88em, fill: fill)[#title]
-  #v(0.4em)
-  #set text(size: 0.74em)
-  #set list(marker: text(fill: fill)[•], spacing: 0.38em)
-  #for it in items [ - #it ]
-]
+
 
 #let ai-card(label, body) = block(
   fill: white,
@@ -117,36 +103,49 @@
   - Then the disease, then how to put AI in without inventing a strategy from a data bug
 ]
 
-== You may have MBA-student disease if
+== MBA-student disease
+
+#text(size: 1.9em, weight: "bold")[You may have MBA-student disease if...]
+#v(-0.5em)
 
 #grid(
   columns: (1fr, 1fr),
   gutter: 0.85em,
   rows: 1fr,
-  cmp-col(
-    [Symptoms],
-    (
-      […you believe that “business is business”, regardless of scale, geography, or sector.],
-      […you make every decision using a framework, or by NPV/IRR.],
-      […you immediately find a decision where domain experts are obviously wrong.],
-      […you use words like synergy, disruption, and scalability without being specific.],
-      […you prioritize quick wins and next-quarter finances over long-term success.],
-      […you think IT, Security, and R&D are “overheads.”],
-    ),
-  ),
-  cmp-col(
-    [The Cure · Chesterton's Fence],
-    (
-      [Before changing something, be able to articulate why it was in the first place.],
-      [Understand the specific details of your technology or market and the trade-offs it imposes on your business.],
-      [Understand the specific needs of your customers and why they come to your product. Test this often.],
-      [Document your understanding and decision-making and revisit it often. Things in retrospect look very different than in prospect.],
-      [Recognize that, quite often, the most valuable assets in a company are intangible and difficult to measure.],
-    ),
-    fill: accent,
-    stroke: 1.6pt + accent,
-  ),
+  align: top,
+  [
+    // the ellipsis is the list marker, so wrapped lines hang under the "you"
+    #set list(marker: […], indent: 0em, body-indent: 0em, spacing: .8em)
+    - you believe that "business is business", regardless of scale, geography, or sector.
+    - you make every decision using a framework, or by NPV/IRR.
+    - you immediately find a decision where domain experts are obviously wrong.
+    - you use words like synergy, disruption, and scalability without being specific.
+    - you prioritize quick wins and next-quarter finances over long-term success.
+    - you think IT, Security, and R&D are "overheads."
+    #pause
+  ],
+  block(
+    fill: white,
+    stroke: 0.5pt + luma(220),
+    radius: 0.4em,
+    inset: (x: 0.75em, y: 0em),
+    outset: (x: 0em, y: 0.65em),
+  )[
+    #set align(top + left)
+    #text(weight: "bold", size: 0.88em, fill: accent)[The Cure]
+    #v(0.4em)
+    #set text(size: 0.86em)
+    #set list(spacing: 1em)
+
+    - Before changing something, articulate why it was in the first place.
+    - Understand your technology or market and the trade-offs it imposes on your business.
+    - Understand the your customers and why they come to your product. Test this often.
+    - Document and revisit your decision-making. Things look very different in retrospect.
+    - The most valuable assets in a company are usually intangible and difficult to measure.
+  ],
 )
+
+
 
 #speaker-note[
   - Crazy example: cattle futures usually settle in delivery, sometimes in cash

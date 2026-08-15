@@ -1,8 +1,8 @@
 #import "@preview/touying:0.7.4": *
 #import "@preview/cetz:0.3.4": canvas, draw
-#import "/common.typ": accent, gblock, lblock, section-quote
+#import "/common.typ": accent, failure-stats, filter-card, gblock, lblock, section-quote, stage-cols, staged
 
-= Case studies
+= What do investors look for?
 
 #section-quote[Success is a lousy teacher. It seduces smart people into thinking they can't lose.][Bill Gates]
 
@@ -152,21 +152,112 @@
 == What do investors look for?
 
 
-#set text(size: 1.15em)
-#set list(spacing: 0.75em)
+// content block: keeps the set rules from leaking into the slides that follow
+#[
+  #set text(size: 1.15em)
+  #set list(spacing: 0.75em)
 
-- Investors are under *constant pressure* to choose.
-  - 5--7 years to make a sufficient return.
-  - Competing with other investment funds for money and startups.
-- Investors optimise for what the *next* investor is looking for
-  - not eventual market success.
-  - *Prone to fads.*
-- They are only interested in high-risk, high-returns.
-  - Rule of thumb: 100 → 10 break-even → 1 makes 100× return.
+  - Investors are under *constant pressure* to choose.
+    - 5--7 years to make a sufficient return.
+    - Competing with other investment funds for money and startups.
+  - Investors optimise for what the *next* investor is looking for
+    - not eventual market success.
+    - *Prone to fads.*
+  - They are only interested in high-risk, high-returns.
+    - Rule of thumb: 100 → 10 break-even → 1 makes 100× return.
+]
 
 #speaker-note[
-  - They exit by selling to the next investor inside their window --- so they optimise for what the next investor wants, not for eventual market success.
-  - That makes them prone to fads. Juicero was a well-engineered object in a fashionable category.
-  - Rule of thumb: 100 deals, 10 break even, 1 returns 100×. They only want high-risk, high-return.
-  - Do not tour reducible vs irreducible uncertainty. One line if asked: a stable 4% bubble-tea stall loses to a 2% shot at 200×.
+  - A stable 4% bubble-tea stall loses to a 2% shot at 200×.
+]
+
+
+= How firms fail
+
+#section-quote[No business plan survives first contact\ with customers.][Steve Blank]
+
+== Startups tend to fail
+
+#failure-stats()
+
+#speaker-note[
+  - Back to the numbers we opened with, now that we know what investors want
+  - Failure is the default; the filters ahead are how you take each cause off the board
+]
+
+== The Great Filters
+
+#show: staged
+
+// One column per stage, revealed left to right; each filter is the gate that
+// stage has to pass.
+#text(size: 1em)[
+  #grid(
+    columns: stage-cols,
+    column-gutter: 0.3em,
+    ..(
+      (
+        [Validation],
+        (
+          [Is the problem worth solving?],
+          [Does it solve the problem?],
+          [Can you collect money?],
+        ),
+      ),
+      (
+        [Customer Discovery],
+        (
+          [Will someone actually pay?],
+          [Can someone pay for it? (The M.A.N.)],
+          [Other than the product, what do you need?],
+          [Will your team fall apart?],
+        ),
+      ),
+      (
+        [Product--Market Fit],
+        (
+          [Do enough people have the same problem to pay for it?],
+          [Are you able to consistently sell?],
+          [What minor changes can I make to sell more?],
+        ),
+      ),
+      (
+        [Expanding Everything],
+        (
+          [How to build sales channels and marketing?],
+          [How to scale production, operations, and distribution?],
+          [How to set prices?],
+        ),
+      ),
+      (
+        [Market Segments],
+        (
+          [How to add new market segments? (The bowling-alley model)],
+        ),
+      ),
+      (
+        [Defending Position],
+        (
+          [How to grow at CAGR?],
+          [How to avoid complacency?],
+          [How to defend against large players?],
+          [How not to be disrupted?],
+          [How to create shareholder value?],
+        ),
+      ),
+    )
+      .enumerate()
+      .map(((i, f)) => uncover(str(i + 1) + "-", filter-card(..f))),
+    [],
+  )
+]
+
+#speaker-note[
+  - Great filters a startup has to pass, one after another. Earlier filters stay in force
+  - Validation: is the problem worth solving, does the idea actually solve it, can you collect money?
+  - Customer Discovery: will someone actually pay? Can they pay --- M.A.N. of money, authority, and need? What else do you need besides the product? Will the team fall apart?
+  - Product--Market Fit: enough people with the same problem who will pay? Consistent sales? What minor changes would let you sell more?
+  - Expanding Everything: sales channels and marketing; scale production, ops, distribution; how you set prices. A working product becomes an operating company
+  - Market Segments: how do you add a new segment? Bowling-alley model --- knock down one pin, then the next adjacent one, not the whole lane at once
+  - Defending Position: CAGR, complacency, large players, disruption, shareholder value
 ]
