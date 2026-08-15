@@ -173,7 +173,163 @@
 
 == How Usage Is Billed
 
-TODO
+
+// The 9-row table needs the full page height, so this slide is built with an explicit
+// `#slide` instead of a `==` heading: that's the only place a per-slide `config-page`
+// actually wins over the theme's own (a document-level `touying-set-config` is
+// re-overridden by metropolis's slide fn). Top margin 3em → 0 takes the title header
+// with it, since the header is drawn inside that margin.
+// The `#let`s below stay OUTSIDE the slide body — the next slide reuses them.
+#let emph-color = rgb("#EB811B")
+#let fmt-price(v) = {
+  let total-3 = calc.round(v * 1000)
+  if calc.rem(total-3, 10) != 0 {
+    let whole = calc.floor(total-3 / 1000)
+    let frac = calc.rem(total-3, 1000)
+    let frac-str = if frac < 10 { "00" + str(frac) } else if frac < 100 { "0" + str(frac) } else { str(frac) }
+    "$" + str(whole) + "." + frac-str
+  } else {
+    let total-2 = calc.round(v * 100)
+    let whole = calc.floor(total-2 / 100)
+    let frac = calc.rem(total-2, 100)
+    let frac-str = if frac < 10 { "0" + str(frac) } else { str(frac) }
+    "$" + str(whole) + "." + frac-str
+  }
+}
+#let cell(model, inp, outp) = [
+  #text(size: 0.8em, fill: luma(80))[#model] \ #text(weight: "bold")[
+    #text(fill: if inp >= 1 { emph-color } else { black })[#fmt-price(inp)] / #text(fill: if outp >= 5 { emph-color } else { black })[#fmt-price(outp)]
+  ]
+]
+#let lab(name, family) = [
+  #name \ #text(size: 0.85em, fill: luma(100))[#family]
+]
+#let no = text(fill: luma(190))[—]
+
+#slide(config: config-page(margin: (top: 0em, bottom: 1.5em, x: 2em), header: none))[
+  // Keep every later slide's number unchanged even though this one has no `==` heading.
+  #counter(heading).step(level: 2)
+  #block(width: 100%, height: 100%)[
+    // Tight leading keeps each 2-line cell short so 9 rows fit one slide.
+    #set par(leading: 0.42em)
+    #table(
+      columns: (42mm, 1fr, 1fr, 1fr, 1fr),
+      rows: auto,
+      align: (left + horizon, left + horizon, left + horizon, left + horizon, left + horizon),
+      stroke: none,
+      fill: (_, row) => if row == 0 { luma(220) } else if calc.odd(row) { luma(245) } else { white },
+      inset: (x: 0.6em, y: 0.32em),
+      table.header(
+        [*Lab*],
+        [*Frontier*\ #text(size: 0.8em, weight: "regular")[\$/M tok in / out]],
+        [*Flagship*\ #text(size: 0.8em, weight: "regular")[\$/M tok in / out]],
+        [*Mid-tier*\ #text(size: 0.8em, weight: "regular")[\$/M tok in / out]],
+        [*Cost-efficient*\ #text(size: 0.8em, weight: "regular")[\$/M tok in / out]],
+      ),
+      // Columns are CAPABILITY tiers (Artificial Analysis Intelligence Index / consensus),
+      // NOT price. Prices deliberately do NOT fall left-to-right — that's the punchline.
+      lab([Anthropic], [Claude]),
+      // Ordered by Anthropic's own brand ladder. The index actually has Opus 5 (63) a hair
+      // ABOVE Fable 5 (62) — but that gap is inside run-to-run variance, so the ladder wins.
+      cell([Fable 5], 10.00, 50.00),
+      cell([Opus 5], 5.00, 25.00),
+      cell([Sonnet 5], 2.00, 10.00),
+      cell([Haiku 4.5], 1.00, 5.00),
+      lab([OpenAI], [GPT]),
+      cell([5.6 Sol], 5.00, 30.00),
+      cell([5.6 Terra], 2.00, 12.00),
+      no,
+      cell([5.6 Luna], 0.20, 1.20),
+
+      lab([Google], [Gemini]),
+      no,
+      cell([3.1 Pro Preview], 2.00, 12.00),
+      cell([3.5 Flash], 1.50, 9.00),
+      cell([3.1 Flash Lite], 0.25, 1.50),
+
+      lab([xAI], [Grok]),
+      cell([4.6], 2.00, 6.00),
+      cell([4.5], 2.00, 6.00),
+      cell([4.3], 1.25, 2.50),
+      // No cheap general model: Grok 4.1 Fast / 4 Fast were retired 2026-08-15.
+      // Build 0.1 (coding specialist) is the cheapest current SKU.
+      cell([Build 0.1], 1.00, 2.00),
+      lab([Z.ai], [GLM]),
+      no,
+      cell([5.2], 0.46, 1.45),
+      cell([5.1], 0.90, 2.82),
+      cell([4.7 Flash], 0.06, 0.40),
+
+      lab([Moonshot], [Kimi]),
+      cell([K3], 3.00, 15.00),
+      cell([K2.7 Code], 0.95, 4.00),
+      cell([K2.6], 0.95, 4.00),
+      cell([K2.5], 0.60, 3.00),
+
+      lab([Alibaba], [Qwen]),
+      no,
+      cell([3.8 Max], 2.00, 6.00),
+      cell([3.7 Max], 1.25, 3.75),
+      cell([3.7 Plus], 0.32, 1.28),
+      lab([DeepSeek], [DeepSeek]),
+      no,
+      // Post-2026-08-16 peak rates. DeepSeek raised prices 50%–1100% and split billing into
+      // peak (01-04 + 06-10 UTC) / off-peak (half these numbers). Peak is the anchor rate.
+      cell([V4 Pro], 1.32, 3.96),
+      cell([V4 Flash], 0.44, 1.32),
+      // DeepSeek now sells exactly two models on its own API — V3.2 and everything older
+      // survive only on third-party hosts, so they're off the grid.
+      no,
+    )
+    // Self-hosted "postcard" — ultra-cheap counterpoint: run a small model yourself (2nd subslide)
+    // Cost basis: electricity ONLY (hardware not amortised — see speaker notes).
+    // Qwen3.8-27B, NVFP4 + MTP under vLLM on an NVIDIA DGX Spark: 274.7 decode tok/s
+    // aggregate at concurrency 32 (gauravmm.github.io/autobench, 2026-08-15)
+    //   → 274.7 × 3600 = 0.989M output tok/hr
+    // Power: 60–90W measured at the wall under LLM inference (ServeTheHome); 75W midpoint.
+    // Tariff: SP Group Q3 2026 residential S$0.3478/kWh incl 9% GST ≈ US$0.271/kWh.
+    //   → 0.075kW × $0.271 = $0.0203/hr ÷ 0.989M = $0.021/M output
+    //   → prefill ~1.8K tok/s = 6.5M tok/hr → $0.003/M input
+    // At 90W (worst measured) output is $0.025/M; even at 200W (max load STH could
+    // provoke, not inference) it is only $0.055/M — the conclusion is insensitive to this.
+    // Lands over the last two Cost-efficient cells — they're read on subslide 1, then covered.
+    #only("2-")[
+      #place(bottom + right, dx: -2mm, dy: -12mm)[
+        #rotate(-4deg, origin: center + horizon)[
+          #box(
+            fill: white,
+            stroke: 0.6pt + black,
+            inset: (x: 0.7em, y: 0.6em),
+            radius: 1.5pt,
+          )[
+            #text(size: 0.65em, fill: luma(140))[Self-hosted · DGX Spark]\
+            #text(weight: "bold", size: 0.8em)[Qwen 3.8 27B]\
+            #text(weight: "bold", size: 0.9em, fill: rgb("#2E7D32"))[\$0.00 / \$0.02]\
+          ]
+        ]
+      ]
+    ]
+  ]
+  #place(
+    bottom + right,
+    dy: 1em,
+    dx: -.6em,
+    float: false,
+    text(size: 0.7em, fill: luma(120))[
+      tiers: #link("https://artificialanalysis.ai")[artificialanalysis.ai] · prices: #link("https://openrouter.ai/models")[openrouter.ai] + lab pricing pages · 2026-08-15
+    ],
+  )
+
+  #speaker-note[
+    - Columns are capability tiers (AA Intelligence Index), NOT price. Cost isn't an input to the index — which is why this slide works
+    - PUNCHLINE: read a row, prices don't fall left-to-right. Grok 4.6 scores 61 at \$2/\$6; Fable 5 scores 62 at \$10/\$50
+    - Anthropic's row is their brand ladder, not the index — which actually puts Opus 5 (63) just over Fable 5 (62). That gap is inside noise; don't over-claim either way
+    - Blank frontier cells = no top-of-leaderboard model. Google still has none
+    - Prices move BOTH ways: OpenAI cut Luna 80% in July; DeepSeek raised 50–1100% on 16 Aug (peak rates shown, off-peak is half)
+    - Postcard: my own DGX Spark benchmark — 274.7 tok/s, 75W, SG tariff → 2¢/M output
+    - But: electricity only. The \$4,699 box amortises to \~\$0.18/M — 9× the power. And 274.7 is aggregate over 32 streams; one user gets \~30× worse cost
+  ]
+]
 
 == Simple LLM vs Agentic AI
 

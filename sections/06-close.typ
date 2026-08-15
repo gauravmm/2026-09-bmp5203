@@ -1,6 +1,6 @@
 #import "@preview/touying:0.7.4": *
 #import "@preview/tiaoma:0.3.0": qrcode
-#import "/common.typ": gblock, lblock, accent, section-quote
+#import "/common.typ": accent, gblock, lblock, section-quote
 
 = Dangers
 
@@ -10,54 +10,6 @@
   - And many, many more
 ]
 
-== Specific dangers
-
-#grid(
-  rows: (1fr, auto),
-  row-gutter: 0.7em,
-  grid(
-    columns: (1fr, 1fr),
-    rows: (1fr, 1fr),
-    gutter: 0.75em,
-    lblock(inset: 0.9em, outset: 0pt)[
-      #align(horizon)[
-        #text(weight: "bold", size: 1.25em)[Moat]
-        #v(0.35em)
-        #text(size: 0.88em)[Can they clone you tomorrow?]
-      ]
-    ],
-    lblock(inset: 0.9em, outset: 0pt)[
-      #align(horizon)[
-        #text(weight: "bold", size: 1.25em)[Platform risk]
-        #v(0.35em)
-        #text(size: 0.88em)[They own the floor you stand on.]
-      ]
-    ],
-    lblock(inset: 0.9em, outset: 0pt)[
-      #align(horizon)[
-        #text(weight: "bold", size: 1.25em)[Unexpected behaviour]
-        #v(0.35em)
-        #text(size: 0.88em)[Agents are fallible. Treat them as such.]
-      ]
-    ],
-    lblock(inset: 0.9em, outset: 0pt)[
-      #align(horizon)[
-        #text(weight: "bold", size: 1.25em)[AI model subsidy]
-        #v(0.35em)
-        #text(size: 0.88em)[Today's price is not the cost.]
-      ]
-    ],
-  ),
-  align(center)[
-    #text(size: 1.05em, fill: luma(90))[…and many, many more.]
-  ],
-)
-
-#speaker-note[
-  - Very short summary. Four dangers, then we walk three of them
-  - Unexpected behaviour was Replit / Chevy — do not re-litigate
-  - The list is not exhaustive
-]
 
 == No defensible moat
 
