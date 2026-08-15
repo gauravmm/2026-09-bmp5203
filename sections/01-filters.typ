@@ -1,26 +1,30 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote, staged
+#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote, stage-callout, stage-cols, staged
 
-#let stage(n, title, gloss) = lblock(inset: 0.48em, outset: 0pt)[
-  #text(fill: accent, weight: "bold", size: 0.7em, font: "DejaVu Sans Mono")[#n]
-  #h(0.28em)
-  #text(weight: "bold")[#title]
-  #v(0.22em)
-  #text(size: 0.66em, fill: luma(70))[#gloss]
-]
-
-#let flow-arrow = align(center + horizon)[
-  #text(size: 1.3em, fill: luma(160))[→]
-]
-
-#let band(label, fill, stroke: 0.55pt + luma(190)) = box(
+#let band(label, fill, stroke: 0.55pt + luma(190), height: 2.2em) = box(
   width: 100%,
-  height: 2.2em,
+  height: height,
   fill: fill,
   radius: 0.16em,
   stroke: stroke,
   inset: (x: 0.6em),
 )[#align(horizon)[#text(size: 0.8em)[#label]]]
+
+// Investment rounds as a staircase: row i starts one stage further right than
+// row i-1 and spans two stages (the last one, IPO, spans one).
+#let round-cascade(labels) = {
+  labels.enumerate().map(((i, label)) => {
+    let span = if i == labels.len() - 1 { 1 } else { 2 }
+    (
+      ..range(i).map(_ => []),
+      grid.cell(
+        colspan: span,
+        band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 1.6em),
+      ),
+      ..range(6 - i - span).map(_ => []),
+    )
+  }).flatten()
+}
 
 = How firms fail
 
@@ -107,44 +111,82 @@
   - Survival is predicated on assessing risks and carefully managing them
 ]
 
-== Stages of starting up
+== Idea
 
-#grid(
-  columns: (1fr, auto, 1fr, auto, 1fr),
-  column-gutter: 0.35em,
-  row-gutter: 0.55em,
-  stage(
-    [01],
-    [Idea],
-  )[You have an idea, and you're convinced that it solves a problem for someone in a way that they will pay you for.],
-  flow-arrow,
-  stage(
-    [02],
-    [Prototyping],
-  )[You build the coarsest possible version of your solution, held together with spit and duct tape.],
-  flow-arrow,
-  stage([03], [Go-to-market])[You receive money from a few people for your solution.],
+#show: staged.with(active: "Idea")
 
-  stage([04], [Early Growth])[You start making predictable sales.],
-  flow-arrow,
-  stage([05], [Growth])[You make more and more sales, and expand across markets.],
-  flow-arrow,
-  stage([06], [Maturity])[You attain stable, average, growth and now work to maintain market position.],
-)
-
-#v(0.7em)
-#pause
-#gblock[
-  _We're going to focus on the first half._
+#stage-callout("Idea")[
+  You have an idea, and you're convinced that it solves a problem for someone in
+  a way that they will pay you for.
 ]
 
 #speaker-note[
-  - Idea: convinced it solves a problem for someone in a way they will pay you for
-  - Prototyping: coarsest possible version, spit and duct tape
-  - Go-to-market: money from a few people
-  - Early Growth: predictable sales
-  - Growth: more sales, expand across markets
-  - Maturity: stable, average growth; now you defend position
+  - Convinced it solves a problem for someone in a way they will pay you for
+  - Nothing built yet; the whole stage is a bet on a belief
+]
+
+== Prototyping
+
+#show: staged.with(active: "Prototyping")
+
+#stage-callout("Prototyping")[
+  You build the coarsest possible version of your solution, held together with
+  spit and duct tape.
+]
+
+#speaker-note[
+  - Coarsest possible version, spit and duct tape
+  - The point is to learn, not to ship something durable
+]
+
+== Go-to-market
+
+#show: staged.with(active: "Go-to-market")
+
+#stage-callout("Go-to-market")[
+  You receive money from a few people for your solution.
+]
+
+#speaker-note[
+  - Money from a few people --- the first real signal
+  - A few paying customers, not yet a repeatable machine
+]
+
+== Early Growth
+
+#show: staged.with(active: "Early Growth")
+
+#stage-callout("Early Growth")[
+  You start making predictable sales.
+]
+
+#speaker-note[
+  - Predictable sales: you can forecast, not just hope
+]
+
+== Growth
+
+#show: staged.with(active: "Growth")
+
+#stage-callout("Growth")[
+  You make more and more sales, and expand across markets.
+]
+
+#speaker-note[
+  - More sales, expand across markets
+  - The problems become operational rather than existential
+]
+
+== Maturity
+
+#show: staged.with(active: "Maturity")
+
+#stage-callout("Maturity")[
+  You attain stable, average, growth and now work to maintain market position.
+]
+
+#speaker-note[
+  - Stable, average growth; now you defend position
   - We focus on the first half
 ]
 
@@ -164,8 +206,7 @@
 
   [],
   [],
-  grid.cell(colspan: 3, band([As a consultant.], accent.transparentize(68%))),
-  [],
+  grid.cell(colspan: 4, band([As a consultant.], accent.transparentize(68%))),
   [],
 
   [],
@@ -201,44 +242,165 @@
   - Ordinary employees usually only see late stages, once the firm is already large
 ]
 
-== The Great Filters
+== The Funding Gap
+
+#show: staged
 
 #grid(
-  columns: (1fr, 1fr, 1fr),
-  gutter: 0.55em,
-  filter-card([Validation], (
-    [Is the problem worth solving?],
-    [Does it solve the problem?],
-    [Can you collect money?],
-  )),
-  filter-card([Customer Discovery], (
-    [Will someone actually pay?],
-    [Can someone pay for it? (The M.A.N.)],
-    [Other than the product, what do you need?],
-    [Will your team fall apart?],
-  )),
-  filter-card([Product--Market Fit], (
-    [Do enough people have the same problem to pay for it?],
-    [Are you able to consistently sell?],
-    [What minor changes can I make to sell more?],
-  )),
+  columns: stage-cols,
+  column-gutter: 0.3em,
+  row-gutter: 0.45em,
+  grid.cell(colspan: 2, band([Pre-Revenue], luma(228))),
+  grid.cell(colspan: 4, band([Revenue Generating], accent.transparentize(72%))),
+  [],
 
-  filter-card([Expanding Everything], (
-    [How to build sales channels and marketing?],
-    [How to scale production, operations, and distribution?],
-    [How to set prices?],
-  )),
-  filter-card([Market Segments], (
-    [How to add new market segments? (The bowling-alley model)],
-  )),
-  filter-card([Defending Position], (
-    [How to grow at CAGR?],
-    [How to avoid complacency?],
-    [How to defend against large players?],
-    [How not to be disrupted?],
-    [How to create shareholder value?],
-  )),
+  grid.cell(colspan: 2)[
+    #box(
+      width: 100%,
+      height: 0.7em,
+      stroke: (left: 1.2pt + accent, right: 1.2pt + accent, bottom: 1.2pt + accent),
+    )
+    #v(0.15em)
+    #align(center, text(size: 0.8em, weight: "bold")[The funding gap.])
+  ],
+  [], [], [], [], [],
 )
+
+#v(0.9em)
+You spend money now hoping to make money later. It is an *existential* threat for
+all early-stage startups. To survive, startups must manage their *runway* and
+control their *burn rate*.
+
+#speaker-note[
+  - Pre-revenue you are spending with nothing coming in --- that is the funding gap
+  - Existential: most early-stage failures happen here
+  - Runway: how long the money lasts. Burn rate: how fast you spend it
+]
+
+== Investment Rounds
+
+#show: staged
+
+#grid(
+  columns: stage-cols,
+  column-gutter: 0.3em,
+  row-gutter: 0.45em,
+  grid.cell(colspan: 2, band([Pre-Revenue], luma(228))),
+  grid.cell(colspan: 4, band([Revenue Generating], accent.transparentize(72%))),
+  [],
+)
+
+#v(0.5em)
+#grid(
+  columns: stage-cols,
+  column-gutter: 0.3em,
+  row-gutter: 0.25em,
+  align: horizon,
+  grid.cell(rowspan: 5)[
+    #text(size: 0.8em, weight: "bold")[Where does your investment come from?]
+  ],
+  ..round-cascade((
+    [Pre-Seed or F/F/F],
+    [Seed],
+    [Series A],
+    [Series B…],
+    [IPO],
+  ))
+)
+
+#v(0.8em)
+// touying eats a literal `---` in body text (it is a subslide marker), so use the glyph
+What do you trade for investment? *Equity* — the value and ownership of your company.
+
+#speaker-note[
+  - Rounds step rightwards and downwards: each one comes later and buys less risk
+  - Pre-Seed / friends, family and fools; then Seed, Series A, Series B and on
+  - IPO is the exit, not the goal for most firms
+  - What you trade is equity: value and ownership of your company
+]
+
+== Equity in a startup
+
+#show: staged
+
+#grid(
+  columns: stage-cols,
+  column-gutter: 0.3em,
+  row-gutter: 0.25em,
+  align: horizon,
+  grid.cell(rowspan: 5)[
+    #text(size: 0.8em, weight: "bold")[
+      Where does your investment come from?\
+      How much equity do you give up?
+    ]
+  ],
+  ..round-cascade((
+    [Pre-Seed or F/F/F: *10%*],
+    [Seed: *20%*],
+    [Series A: *25%*],
+    [Series B…],
+    [IPO],
+  ))
+)
+
+#v(0.8em)
+#set list(marker: text(fill: accent)[•], spacing: 0.4em)
+- You can dilute your share to nothing very easily.
+- You can agree to innocuous terms that are very bad later.
+- You are usually at an information disadvantage about external issues.
+
+#speaker-note[
+  - Rough rule of thumb: 10% pre-seed, 20% seed, 25% Series A --- it compounds
+  - Dilution to nothing is easy; terms that look innocuous bite later
+  - You are almost always the less-informed party at the table
+]
+
+== The Great Filters
+
+#show: staged
+
+// One column per stage, revealed left to right; each filter is the gate that
+// stage has to pass.
+#text(size: 0.86em)[
+  #grid(
+    columns: stage-cols,
+    column-gutter: 0.3em,
+    ..(
+      ([Validation], (
+        [Is the problem worth solving?],
+        [Does it solve the problem?],
+        [Can you collect money?],
+      )),
+      ([Customer Discovery], (
+        [Will someone actually pay?],
+        [Can someone pay for it? (The M.A.N.)],
+        [Other than the product, what do you need?],
+        [Will your team fall apart?],
+      )),
+      ([Product--Market Fit], (
+        [Do enough people have the same problem to pay for it?],
+        [Are you able to consistently sell?],
+        [What minor changes can I make to sell more?],
+      )),
+      ([Expanding Everything], (
+        [How to build sales channels and marketing?],
+        [How to scale production, operations, and distribution?],
+        [How to set prices?],
+      )),
+      ([Market Segments], (
+        [How to add new market segments? (The bowling-alley model)],
+      )),
+      ([Defending Position], (
+        [How to grow at CAGR?],
+        [How to avoid complacency?],
+        [How to defend against large players?],
+        [How not to be disrupted?],
+        [How to create shareholder value?],
+      )),
+    ).enumerate().map(((i, f)) => uncover(str(i + 1) + "-", filter-card(..f))),
+    [],
+  )
+]
 
 #speaker-note[
   - Great filters a startup has to pass, one after another. Earlier filters stay in force

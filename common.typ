@@ -150,6 +150,11 @@
 // The six startup stages, in order. Also the column basis for `stage-strip`.
 #let stages = ("Idea", "Prototyping", "Go-to-market", "Early Growth", "Growth", "Maturity")
 
+// Column track for anything that must line up under `stage-strip`:
+// six equal stage columns plus the arrowhead's own column. Pair it with
+// `column-gutter: 0.3em`.
+#let stage-cols = (..stages.map(_ => 1fr), 0.7em)
+
 // Reusable "Idea → … → Maturity" header: six pills on an arrow band.
 // Call it as the FIRST thing in a slide body — the fixed height is what keeps
 // it in the same place from slide to slide.
@@ -168,7 +173,8 @@
     width: 100%,
     height: 2.0em,
     radius: 0.25em,
-    fill: if name == active { accent.transparentize(82%) } else { luma(224) },
+    // lighten, not transparentize — the ribbon must not show through the pill
+    fill: if name == active { accent.lighten(82%) } else { luma(224) },
     stroke: if name == active { 0.8pt + accent },
   )[
     #align(center + horizon)[
@@ -213,6 +219,28 @@
   stage-strip(active: active)
   v(gap)
   body
+}
+
+// Callout that hangs under one pill of `stage-strip`, with a caret pointing up
+// at that column. Columns match the strip, so the caret lands dead centre.
+#let stage-callout(active, body, fill: luma(235), width: 50%) = {
+  let i = stages.position(s => s == active)
+  let caret = polygon(fill: fill, (0pt, 0.55em), (0.55em, 0pt), (1.1em, 0.55em))
+  grid(
+    columns: stage-cols,
+    column-gutter: 0.3em,
+    ..range(stages.len() + 1).map(j => if j == i { align(center, caret) } else { [] })
+  )
+  // ponytail: half-width box hugs the side the caret is on, so the caret always
+  // lands over it without having to solve for the column centre
+  block(
+    width: 100%,
+    spacing: 0pt,
+    align(
+      if i != none and i >= stages.len() / 2 { right } else { left },
+      box(width: width, fill: fill, radius: 0.3em, inset: 0.9em)[#align(left)[#body]],
+    ),
+  )
 }
 
 // Draft placeholder for a slide we will write together.
