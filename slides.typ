@@ -8,6 +8,9 @@
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
   footer: self => self.info.institution,
+  // The header bar is dark, the title slide is not, so the mark comes in two
+  // colours. Typst ignores `currentColor` in an SVG, hence two files.
+  header-right: image("gm-logo-white.svg", height: 0.85cm),
   config-common(
     new-section-slide-fn: big-section-slide,
     receive-body-for-new-section-slide-fn: true,

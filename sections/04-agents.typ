@@ -127,7 +127,7 @@
   [
     Tokens are *chunks* of text
 
-    - Roughly 1 token ≈ 3/4 of an English word
+    - Roughly 1 token ≈ ¾ of an English word
     - Varies for code, other languages, numbers
     - Punctuation and spaces count
 
