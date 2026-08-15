@@ -294,7 +294,7 @@
     // provoke, not inference) it is only $0.055/M — the conclusion is insensitive to this.
     // Lands over the last two Cost-efficient cells — they're read on subslide 1, then covered.
     #only("2-")[
-      #place(bottom + right, dx: -2mm, dy: -12mm)[
+      #place(bottom + right, dx: -6mm, dy: 4mm)[
         #rotate(-4deg, origin: center + horizon)[
           #box(
             fill: white,
@@ -302,7 +302,7 @@
             inset: (x: 0.7em, y: 0.6em),
             radius: 1.5pt,
           )[
-            #text(size: 0.65em, fill: luma(140))[Self-hosted · DGX Spark]\
+            #text(size: 0.65em, fill: luma(140))[Self-hosted]\
             #text(weight: "bold", size: 0.8em)[Qwen 3.8 27B]\
             #text(weight: "bold", size: 0.9em, fill: rgb("#2E7D32"))[\$0.00 / \$0.02]\
           ]

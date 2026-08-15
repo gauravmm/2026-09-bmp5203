@@ -68,11 +68,15 @@
     + *Dangers* \
       #sub[Moat · platform · subsidy · Jevons]
   ],
-  [
-    #lblock(inset: (x: 0.8em, y: 0.7em), outset: 0pt)[
-      I will give you tools. \
-      The tools are how people get \
-      *MBA-student disease.*
+  align(horizon)[
+    #lblock(inset: (x: 0.9em, y: 0.8em), outset: 0pt)[
+      *90 minutes.* Interrupt me --- questions are better than my notes.
+
+      #v(0.5em)
+      #text(size: 0.85em, fill: luma(80))[
+        Slides and reading list are on the last slide, or at
+        #link("https://gauravmanek.com/lectures")[gauravmanek.com/lectures].
+      ]
     ]
   ],
 )
