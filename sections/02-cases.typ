@@ -20,7 +20,7 @@
   gutter: 1.3em,
   align: horizon,
   block(radius: 0.4em, clip: true)[
-    #image("/media/juicero.jpg", height: 100%)
+    #image("02-cases/juicero.jpg", height: 100%)
   ],
   [
     #text(size: 1.9em, weight: "bold")[Juicero]
@@ -52,7 +52,7 @@
 == Case Study: Juicero
 
 #place(top + left, dx: -30mm, dy: -6mm)[
-  #image("/media/juicero-guardian.png", width: 120%, height: 120%, fit: "cover")
+  #image("02-cases/juicero-guardian.png", width: 120%, height: 120%, fit: "cover")
 ]
 
 #place(bottom + right, dx: 1em, dy: -1em)[

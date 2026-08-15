@@ -37,4 +37,5 @@
 #include "sections/02-cases.typ"
 #include "sections/03-hinge.typ"
 #include "sections/04-agents.typ"
-#include "sections/05-close.typ"
+#include "sections/05-wild.typ"
+#include "sections/06-close.typ"

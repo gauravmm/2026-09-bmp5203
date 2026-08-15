@@ -8,7 +8,7 @@
   gutter: 2em,
   align(center + horizon)[
     #block(radius: 0.5em, clip: true)[
-      #image("/media/portrait.jpg", width: 100%, height: 120mm)
+      #image("00-open/portrait.jpg", width: 100%, height: 120mm)
     ]
   ],
   align(horizon)[

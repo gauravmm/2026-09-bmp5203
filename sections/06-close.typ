@@ -82,7 +82,7 @@
   ],
   [
     #block(radius: 0.3em, clip: true, width: 100%)[
-      #image("/media/docusign-lovable.png", width: 100%, height: 10.4cm, fit: "cover")
+      #image("06-close/docusign-lovable.png", width: 100%, height: 10.4cm, fit: "cover")
     ]
     #v(0.35em)
     #align(center)[_What's their moat?_]
@@ -157,7 +157,7 @@
   ],
   [
     #block(radius: 0.3em, clip: true, width: 100%)[
-      #image("/media/ai-subsidy.png", width: 100%)
+      #image("06-close/ai-subsidy.png", width: 100%)
     ]
   ],
 )

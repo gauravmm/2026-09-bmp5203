@@ -18,9 +18,8 @@ Typst 0.15+, Touying 0.7.4, metropolis theme. Same helpers as `../agentic-ai-tut
 ```
 slides.typ            entry + theme
 common.typ            gblock / lblock / bars / stubs
-sections/             one file per act
+sections/             one file per act, with its images in a folder of the same name
 figures/              CeTZ diagrams (not committed as PNG)
-media/                photos and news screenshots from the BSE3713 PPTX
 spec/                 lecture options and the slide contract
 ```
 
