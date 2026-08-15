@@ -18,7 +18,7 @@
     author: [Dr. Gaurav Manek],
     date: datetime.today(),
     institution: [NUS BMP5203 -- Fall 2026],
-    logo: image("ocellivision-logo.png", height: 1.6cm),
+    logo: image("gm-logo.svg", height: 1.6cm),
   ),
 )
 
