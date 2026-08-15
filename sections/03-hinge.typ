@@ -1,5 +1,5 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, accent
+#import "/common.typ": gblock, lblock, accent, section-quote
 
 #let cmp-col(title, items, fill: luma(90), stroke: 0.5pt + luma(220)) = block(
   fill: white,
@@ -106,29 +106,15 @@
 
 = The hinge
 
+#section-quote[Civilization rests on the fact that we all benefit from knowledge which we do not possess.][Friedrich Hayek]
+
 #speaker-note[
   - Load-bearing act: I just handed you frameworks; now do not get drunk on them
-  - Hayek, then the disease, then how to put AI in without inventing a strategy from a data bug
-]
-
-== Knowledge we do not possess
-
-#align(center + horizon)[
-  #text(size: 4.2em, fill: accent)[“]
-  #v(-1.35em)
-  #block(width: 88%)[
-    #set par(leading: 0.5em)
-    #text(size: 1.45em)[_Civilization rests on the fact that we all benefit from knowledge which we do not possess._]
-  ]
-  #v(1.1em)
-  #text(size: 0.9em, fill: luma(100), tracking: 0.14em)[--- FRIEDRICH HAYEK]
-]
-
-#speaker-note[
   - Hayek: civilization rests on knowledge we do not possess
   - You will not personally hold the market, the stack, or the customer's tacit knowledge
   - That is why Chesterton applies in someone else's firm, and why a model cannot invent the fence
   - This is the hinge after the frameworks: the knowledge is not in the room
+  - Then the disease, then how to put AI in without inventing a strategy from a data bug
 ]
 
 == You may have MBA-student disease if

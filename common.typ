@@ -34,6 +34,8 @@
         current-heading.body,
       ),
     )
+    // Title row: number hangs left of the title and bar only, so a
+    // following epigraph does not pull the numeral down.
     grid(
       columns: (1fr, 16cm, 1fr),
       column-gutter: .8em,
@@ -51,7 +53,17 @@
         ),
       ),
     )
-    text(self.colors.neutral-dark, body)
+    // Quote / notes sit under the title column. Absolute size so the
+    // 1.9em title setting does not inflate the epigraph.
+    grid(
+      columns: (1fr, 16cm, 1fr),
+      column-gutter: .8em,
+      [],
+      {
+        set text(size: 20pt, fill: self.colors.neutral-dark)
+        body
+      },
+    )
   }
   self = utils.merge-dicts(self, config-page(fill: self.colors.neutral-lightest))
   touying-slide(self: self, config: config, slide-body)
@@ -78,6 +90,21 @@
 
 // Metropolis default primary — use for bars, accents, comparison "good" sides.
 #let accent = rgb("#EB811B")
+
+// Epigraph for a `=` section slide. Lives in the section body so
+// `big-section-slide` can place it under the title instead of on the next slide.
+#let section-quote(quote, by) = {
+  v(1.15em)
+  block(
+    width: 100%,
+  )[
+    #set text(size: 1.05em, style: "italic", fill: luma(70))
+    #set par(leading: 0.5em)
+    “#quote”
+    #v(0.0em)
+    #align(right, text(size: 0.72em, style: "normal", fill: luma(110))[--- #by])
+  ]
+}
 
 // Grey titled box that fills its grid cell. From 01-introduction.
 #let aside(title, body) = box(
@@ -117,7 +144,7 @@
   #v(0.25em)
   #set text(size: 0.72em)
   #set list(marker: text(fill: accent)[•], spacing: 0.35em)
-  #for it in items [ - #it ]
+  #for it in items [- #it]
 ]
 
 // Draft placeholder for a slide we will write together.
@@ -132,5 +159,5 @@
   #text(weight: "bold")[Learning outcomes]
   #set text(size: 0.9em)
   #set list(spacing: 0.4em)
-  #for o in outcomes [ - #o ]
+  #for o in outcomes [- #o]
 ]

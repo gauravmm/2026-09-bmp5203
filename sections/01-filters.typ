@@ -1,5 +1,5 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, hbar, filter-card, accent
+#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote
 
 #let stage(n, title, gloss) = lblock(inset: 0.48em, outset: 0pt)[
   #text(fill: accent, weight: "bold", size: 0.7em, font: "DejaVu Sans Mono")[#n]
@@ -23,25 +23,11 @@
 
 = How firms fail
 
+#section-quote[Starting a company is like staring into the abyss and eating glass.][Elon Musk]
+
 #speaker-note[
   - First act: how firms fail, then the stages, then the filters
   - Toolkit first; the hinge later is "don't get drunk on the toolkit"
-]
-
-== Starting up a company
-
-#align(center + horizon)[
-  #block(width: 86%)[
-    #set par(leading: 0.5em)
-    #text(size: 1.65em, style: "italic")[
-      “Starting a company is like staring into the abyss and eating glass.”
-    ]
-    #v(0.75em)
-    #text(size: 1.05em, fill: luma(90))[--- Elon Musk]
-  ]
-]
-
-#speaker-note[
   - Musk: starting a company is like staring into the abyss and eating glass
   - The work is hard and psychologically brutal
   - Hold that in mind as we look at the failure numbers
@@ -128,11 +114,18 @@
   columns: (1fr, auto, 1fr, auto, 1fr),
   column-gutter: 0.35em,
   row-gutter: 0.55em,
-  stage([01], [Idea])[You have an idea, and you're convinced that it solves a problem for someone in a way that they will pay you for.],
+  stage(
+    [01],
+    [Idea],
+  )[You have an idea, and you're convinced that it solves a problem for someone in a way that they will pay you for.],
   flow-arrow,
-  stage([02], [Prototyping])[You build the coarsest possible version of your solution, held together with spit and duct tape.],
+  stage(
+    [02],
+    [Prototyping],
+  )[You build the coarsest possible version of your solution, held together with spit and duct tape.],
   flow-arrow,
   stage([03], [Go-to-market])[You receive money from a few people for your solution.],
+
   stage([04], [Early Growth])[You start making predictable sales.],
   flow-arrow,
   stage([05], [Growth])[You make more and more sales, and expand across markets.],
@@ -257,6 +250,7 @@
     [Are you able to consistently sell?],
     [What minor changes can I make to sell more?],
   )),
+
   filter-card([Expanding Everything], (
     [How to build sales channels and marketing?],
     [How to scale production, operations, and distribution?],

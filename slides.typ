@@ -8,7 +8,10 @@
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
   footer: self => self.info.institution,
-  config-common(new-section-slide-fn: big-section-slide),
+  config-common(
+    new-section-slide-fn: big-section-slide,
+    receive-body-for-new-section-slide-fn: true,
+  ),
   config-info(
     title: [Decision-Making in Business & AI],
     subtitle: [BMP5203 Competitive Strategy, Digitisation, and AI],

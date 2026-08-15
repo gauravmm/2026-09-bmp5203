@@ -1,30 +1,13 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, accent
+#import "/common.typ": gblock, lblock, accent, section-quote
 
 = Case studies
+
+#section-quote[Success is a lousy teacher. It seduces smart people into thinking they can't lose.][Bill Gates]
 
 #speaker-note[
   - Short break in the argument
   - The rest of this part is case studies --- mostly failures, because those teach more than the wins
-]
-
-== Looking at failure
-
-#align(center + horizon)[
-  #text(size: 4.6em, fill: accent.transparentize(45%), weight: "bold")[“]
-  #v(-1.15em)
-  #block(width: 86%)[
-    #set par(leading: 0.48em)
-    #text(size: 1.55em, style: "italic")[
-      Success is a lousy teacher. \
-      It seduces smart people into thinking they can't lose.
-    ]
-  ]
-  #v(0.75em)
-  #text(size: 1.05em, fill: luma(90))[--- Bill Gates]
-]
-
-#speaker-note[
   - Bill Gates: success is a lousy teacher. It seduces smart people into thinking they can't lose.
   - We are going to look at failures on purpose.
 ]

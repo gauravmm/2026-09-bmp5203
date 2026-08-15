@@ -1,6 +1,6 @@
 #import "@preview/touying:0.7.4": *
 #import "@preview/tiaoma:0.3.0": qrcode
-#import "/common.typ": gblock, lblock, accent
+#import "/common.typ": gblock, lblock, accent, section-quote
 
 = Dangers
 
@@ -171,24 +171,11 @@
 
 = In summary
 
+#section-quote[I have made this letter longer than usual, because I have not had time to make it shorter.][Blaise Pascal]
+
 #speaker-note[
   - The remaining slides are the short version
   - Pascal: I have made this letter longer than usual, because I have not had time to make it shorter
-]
-
-== The short version
-
-#align(center + horizon)[
-  #text(size: 1.45em)[
-    "I have made this letter longer than usual, \
-    because I have not had time to make it shorter."
-  ]
-  #v(0.85em)
-  #text(size: 1.05em, fill: luma(80))[— Blaise Pascal]
-]
-
-#speaker-note[
-  - In summary. The remaining slides are the short version
   - We spent the time so they do not have to
 ]
 
