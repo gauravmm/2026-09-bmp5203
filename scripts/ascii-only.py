@@ -9,13 +9,9 @@ import sys
 import unicodedata
 
 ALLOWED = set(
-    "─"  # BOX DRAWINGS LIGHT HORIZONTAL - ASCII art rules
-    "—–"  # EM DASH, EN DASH
     "→↔↗↘"  # RIGHTWARDS, LEFT RIGHT, NE, SE ARROW
     "·•◆…"  # MIDDLE DOT, BULLET, BLACK DIAMOND, ELLIPSIS
     "×÷≠≈≤≥"  # MULTIPLICATION .. GREATER-THAN OR EQUAL
-    "‘’“”"  # curly quotes
-    "°¾¢"  # DEGREE, THREE QUARTERS, CENT
 )
 
 

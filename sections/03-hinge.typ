@@ -274,7 +274,7 @@
   - For a startup this is a moat question, not a legal one: the audit is what an enterprise buyer trusts
 ]
 
-== AI adoption — plumbing
+== AI adoption --- plumbing
 
 #grid(
   columns: (1.15fr, 1fr),

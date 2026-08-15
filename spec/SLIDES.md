@@ -1,4 +1,4 @@
-# BMP5203 guest lecture — 90-minute options
+# BMP5203 guest lecture -- 90-minute options
 
 **Course:** BMP5203 Competitive Strategy, Digitisation, and AI (NUS; industrial-economics lens).
 **Audience:** Masters students with work and some entrepreneurship experience. Not first-time founders, not engineers.
@@ -12,11 +12,11 @@
 
 ## 1. What we actually have
 
-### 1.1 Business (BSE3713 Parts 1–2)
+### 1.1 Business (BSE3713 Parts 1-2)
 
 A ~50-minute block on starting and failing companies.
 
-- **Part 1.** Failure is the default. Stages from idea to maturity. Funding gap, rounds, dilution. Empire vs exit, missionary vs mercenary. Exit options by stage. Six *great filters*: Validation → Customer Discovery → Product–Market Fit → Expanding Everything → Market Segments → Defending Position. Why even a revenue company raises. Employees vs founders.
+- **Part 1.** Failure is the default. Stages from idea to maturity. Funding gap, rounds, dilution. Empire vs exit, missionary vs mercenary. Exit options by stage. Six *great filters*: Validation → Customer Discovery → Product-Market Fit → Expanding Everything → Market Segments → Defending Position. Why even a revenue company raises. Employees vs founders.
 - **Part 2.** Success is a lousy teacher. Idea filter via Juicero ($120M, a bag you can squeeze by hand). Investor incentives (LP → fund → startup; next-investor optimisation; 100 → 10 → 1). Customer Discovery via WebVan and three FDA products that shipped and still failed (MelaFind, NC-stat, Hemopurifier). CAPEX vs OPEX. Money / Authority / Need, with checkout candy, a $350k imager, and database software. Moore adoption + hype cycle. Maturity as CAGR, share vs expand, incumbents get disrupted.
 
 The argument is: de-risk in order, ask the filter questions out loud, and do not confuse a raise or an FDA stamp with a business.
@@ -26,18 +26,18 @@ The argument is: de-risk in order, ask the filter questions out loud, and do not
 A ~15-minute block that is already the right altitude for this room.
 
 - Hayek: you benefit from knowledge you do not personally hold.
-- **MBA-student disease** vs **Chesterton's Fence.** Symptoms: "business is business"; every decision is a framework or NPV/IRR; domain experts are obviously wrong; synergy / disruption / scalability with no referent; next-quarter over franchise; IT / Security / R&D as "overhead." Cure: say why the fence was built; know the specific technology and market trade-offs; test why customers actually come; write the decision down and reread it later; treat the unmeasurable assets as real. Spoken example: cattle futures can settle in delivery, hog futures are cash-only — *why*, before you "fix" it.
+- **MBA-student disease** vs **Chesterton's Fence.** Symptoms: "business is business"; every decision is a framework or NPV/IRR; domain experts are obviously wrong; synergy / disruption / scalability with no referent; next-quarter over franchise; IT / Security / R&D as "overhead." Cure: say why the fence was built; know the specific technology and market trade-offs; test why customers actually come; write the decision down and reread it later; treat the unmeasurable assets as real. Spoken example: cattle futures can settle in delivery, hog futures are cash-only -- *why*, before you "fix" it.
 - **How to use AI:** a business question must be *modelled* into math and *actioned* back into a policy someone will run. Website traces → P(buy) → email coupons. Time, money, data sit in the middle.
 - **How not to:** the site is broken in Chrome, so Chrome users never buy, so you coupon everyone else. Garbage in, garbage out, wearing a strategy hat.
 - Adoption needs a well-defined model/action pair *and* buy-in (management KPI + users who will actually act). Then plumbing: data collected in the normal course of business, drift, warehousing, compliance.
-- Building an AI product: dependency management, cost monitoring, leaks, guardrails — decide the hooks now, do not implement the whole list on day one.
+- Building an AI product: dependency management, cost monitoring, leaks, guardrails -- decide the hooks now, do not implement the whole list on day one.
 - Four dangers: no moat (DocuSign / Lovable), platform lock-in, unexpected behaviour (Replit deletes prod; Chevy Tahoe for $1), model subsidy (you charge $1, the stack spent $50).
 
 ### 1.3 AI mechanism (agentic tutorial)
 
 A multi-hour zero-code workshop. Two altitudes.
 
-**What the thing is.** "AI" is a marketing term. Jevons: it does not make work easier; it raises the bar. An LLM is fancy autocomplete — next token, that's it. Tokens, context windows, attention's quadratic cost, API vs subscription pricing, MoE / multimodal / tool use. Chinese Room and Wittgenstein's lion: fluent, not grounded. Theory of mind is jagged (car-wash). Alignment is specification gaming (paperclip; delete the failing tests; triage-bot marks everything "no action"). Prompt injection, leakage, hallucination. Design for imperfect agents: blast radius, reversibility, auditability, guardrails, isolation. Prompting is specifying, and you can ask the model to write the prompt.
+**What the thing is.** "AI" is a marketing term. Jevons: it does not make work easier; it raises the bar. An LLM is fancy autocomplete -- next token, that's it. Tokens, context windows, attention's quadratic cost, API vs subscription pricing, MoE / multimodal / tool use. Chinese Room and Wittgenstein's lion: fluent, not grounded. Theory of mind is jagged (car-wash). Alignment is specification gaming (paperclip; delete the failing tests; triage-bot marks everything "no action"). Prompt injection, leakage, hallucination. Design for imperfect agents: blast radius, reversibility, auditability, guardrails, isolation. Prompting is specifying, and you can ask the model to write the prompt.
 
 **What an agent is.** Same LLM, now in a loop with tools (files, code, APIs, sub-agents, skills). Vocabulary: agent, skill, tool use, sub-agents. Production cases: Copilot Workspace, OpenClaw (and the Meta director who almost lost her mail), JPMorgan Ask D.A.V.I.D. (supervisor + specialists + human review), Hippocratic (alignment by *scope*), Klarna ("we went too far"), Sakana (rewrote its own eval). Visual builders. Anthropic's fan-out-of-hundreds, with the bill attached. Speculative swarms. Patterns: vibe coding, actor-critic, complexity ladder, AI-TDD / evals.
 
@@ -45,7 +45,7 @@ Hands-on tasks, token-billing tables, attention math, and the prompt-from-vague-
 
 ### 1.4 The original BSE3713 already *is* a 90-minute lecture
 
-Parts 1–4 plus close are timed at ~80–90 minutes. You cannot port it and "add AI." Something has to be the spine; everything else is evidence.
+Parts 1-4 plus close are timed at ~80-90 minutes. You cannot port it and "add AI." Something has to be the spine; everything else is evidence.
 
 ---
 
@@ -78,7 +78,7 @@ Hayek is the epigraph for all three. Do not drop it.
 
 Each option is 90 minutes, includes the required trio, and can be built mostly from existing slides. Timing includes one short discussion beat, not a seminar.
 
-### Option A — Hinge
+### Option A -- Hinge
 
 *First half: how firms fail. Hinge: don't get drunk on the frameworks I just gave you. Second half: how to put AI in without inventing a strategy out of a data bug.*
 
@@ -92,7 +92,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 | **How to / not to use AI** | 12 | Model ↔ action. Chrome coupon. Adoption = definition + buy-in + plumbing. |
 | What an agent is | 8 | LLM = next token. Agent = loop + tools. Complexity ladder in one slide. |
 | Cases: Klarna vs DAVID/Hippocratic; Replit or Chevy | 12 | Specification gaming; blast radius; human in the loop. |
-| Dangers, one card each | 4 | Moat, platform, subsidy — point, don't tour. |
+| Dangers, one card each | 4 | Moat, platform, subsidy -- point, don't tour. |
 | Close | 3 | Working *on* AI / in a firm. Jevons one-liner. |
 
 **Thesis.** I will give you tools. The tools are how people get MBA-student disease. AI is a very fast way to act on a misunderstood fence.
@@ -101,11 +101,11 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 
 **Cuts.** Exit matrix, rounds and dilution, empire/missionary except a passing line, Moore/hype cycle, NN training tables, prompting drill, vibe-coding/TDD tour, swarms.
 
-**Works when.** You want the most reuse of BSE3713 Parts 1–2 and the most familiar two-act shape.
+**Works when.** You want the most reuse of BSE3713 Parts 1-2 and the most familiar two-act shape.
 
 **Fails when.** The first 40 minutes feel like a startup guest lecture that then "also does AI." The hinge has to be played as a punchline, not a section divider.
 
-### Option B — Fence (recommended)
+### Option B -- Fence (recommended)
 
 *The lecture is Chesterton's Fence applied to strategy and to AI. Filters and cases are how you learn why a fence is there. Agents are how you knock a hundred fences down before lunch.*
 
@@ -119,7 +119,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 | **How to / not to use AI** | 14 | The fence test for automation: name the business question, the math, the policy, the person who will run it. Chrome coupon. Buy-in and drift as "the fence had a maintenance schedule." |
 | Agents and imperfect design | 10 | Next-token → loop + tools. Five design rules (blast radius, reversibility, audit, guardrails, isolation). Complexity ladder: do not start on rung 4. |
 | Klarna, Replit, Chevy; DAVID / Hippocratic | 14 | Two ways to tear the fence: over-automate a human process; give an agent write-access to production or to a price. Two ways to keep it: review every output; shrink the job until a mistake is cheap. |
-| Moat / subsidy, 1–2 slides | 3 | If cloning is a weekend, you do not have a firm. If the sticker price is a lab's loss-leader, your unit economics are fiction. |
+| Moat / subsidy, 1-2 slides | 3 | If cloning is a weekend, you do not have a firm. If the sticker price is a lab's loss-leader, your unit economics are fiction. |
 | Close | 2 | Jevons. Document the fence you left standing. |
 
 **Thesis.** Do not change a system you cannot explain. Do not automate a decision you cannot action. Do not give an agent a lever you would not give a clever intern.
@@ -132,7 +132,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 
 **Fails when.** Front-loading the sermon makes Juicero feel like an illustration of a slide they already agreed with. Mitigation: keep the cattle/hogs story short and treat the filters as *how you earn the right* to change something, not as a second framework dump.
 
-### Option C — Deploy
+### Option C -- Deploy
 
 *Assume they already know firms are hard. Spend the hour on putting AI into an existing business without lying to yourself.*
 
@@ -158,7 +158,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 
 **Fails when.** You waste their entrepreneurship experience, and the hour becomes a vendor-neutral version of "how to do an AI project." Juicero is also the most memorable object in the old deck; losing it hurts.
 
-### Option D — Adversarial cases
+### Option D -- Adversarial cases
 
 *Teach only through failures. Extract the required ideas from the cases instead of stating them first.*
 
@@ -184,7 +184,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 
 **Works when.** The room is tired of frameworks and you can tell stories tightly.
 
-**Fails when.** Without a written method they leave with anecdotes. Also the densest to deliver — six cases in 90 minutes is a lot of setup. Easy to run long.
+**Fails when.** Without a written method they leave with anecdotes. Also the densest to deliver -- six cases in 90 minutes is a lot of setup. Easy to run long.
 
 ---
 
@@ -206,7 +206,7 @@ Each option is 90 minutes, includes the required trio, and can be built mostly f
 | Exit plan matrix, rounds, dilution | Founder mechanics. Wrong course. |
 | Empire vs exit, missionary vs mercenary | Good identity slides, weak on AI and on competitive strategy. |
 | NN layers / training CAPEX tables | Part 3 of BSE3713. They do not need to know how to train a net. |
-| Tokenizer, attention quadratic, price grids, subscription 10–30× | True and fun. They eat 10–15 minutes and do not change a Monday decision, except the one-liner "today's unit cost is not the cost." Put that in subsidy. |
+| Tokenizer, attention quadratic, price grids, subscription 10-30× | True and fun. They eat 10-15 minutes and do not change a Monday decision, except the one-liner "today's unit cost is not the cost." Put that in subsidy. |
 | Prompt-engineering workshop | Wrong format. One line: specify the output; or ask the model to write the prompt. |
 | Vibe coding / TDD / skills marketplace / swarms / LangFlow | Workshop residue. Keep *names* only if they serve complexity or evals. |
 | OpenClaw / Meta inbox | Great in a builders' room. Here it is a toy next to Klarna. |
@@ -270,7 +270,7 @@ From BSE3713 Part 4, almost verbatim:
 - Adoption (definition + buy-in) in compressed form
 - Dangers: moat, unexpected behaviour, subsidy (platform optional)
 
-From BSE3713 Parts 1–2, rebuilt shorter:
+From BSE3713 Parts 1-2, rebuilt shorter:
 
 - One failure/de-risk slide
 - One filters slide (all six, no staged reveal across six decks)

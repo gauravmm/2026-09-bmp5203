@@ -25,7 +25,7 @@
 #set heading(numbering: numbly("{1}.", default: "1.1"))
 
 // Deck-wide list style. Slides that need tighter or looser bullets override the
-// spacing only — the marker is set here, once.
+// spacing only --- the marker is set here, once.
 // Tight lines inside a point, generous air between points.
 #set par(leading: 0.5em)
 #set list(marker: text(fill: accent)[•], spacing: 0.8em)

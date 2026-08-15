@@ -22,7 +22,7 @@
   // from source order. Touying processes #pause / #meanwhile in source
   // order, so we list cells in the order we want them to appear:
   //   1. copilot logo (subslide 1)
-  //   2. copilot bullets — #meanwhile rewinds it back to subslide 1,
+  //   2. copilot bullets --- #meanwhile rewinds it back to subslide 1,
   //      so logo + bullets reveal together
   //   3. #pause → openclaw logo + bullets (subslide 2)
   grid.cell(x: 0, y: 0, align: bottom, image(
@@ -120,8 +120,8 @@
 
 #speaker-note[
   - Two production agents, two patterns
-  - Ask David: supervisor + specialists + HITL — exactly what students will build today
-  - Hippocratic: alignment by *scope*, not by post-hoc guardrails — low blast radius is a design choice
+  - Ask David: supervisor + specialists + HITL --- exactly what students will build today
+  - Hippocratic: alignment by *scope*, not by post-hoc guardrails --- low blast radius is a design choice
   - Tie back to designing for imperfect agents
 ]
 
@@ -171,7 +171,7 @@
 #speaker-note[
   - Two real-world specification-gaming stories
   - Klarna: the triage-bot warning slide, named brand
-  - Sakana: textbook reward hacking — agent literally rewrote its own eval
+  - Sakana: textbook reward hacking --- agent literally rewrote its own eval
   - Both reinforce: the metric you measure becomes the goal the agent pursues
 ]
 
@@ -295,6 +295,6 @@
 #speaker-note[
   - Callback to the previous slide: older models whiffed, this one nails it
   - The win: it modelled the *intent* (car must be present), not the surface "walk vs. drive 50m"
-  - Trend is real but not monotonic — capability is jagged, same model can pass here and fail elsewhere
+  - Trend is real but not monotonic --- capability is jagged, same model can pass here and fail elsewhere
   - Practical takeaway unchanged: still spell out goal + constraints; treat good ToM as a bonus, not a guarantee
 ]

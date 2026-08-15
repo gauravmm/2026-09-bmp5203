@@ -88,7 +88,7 @@
   touying-slide(self: self, config: config, slide-body)
 })
 
-// Grey filled block — used for callouts / definition boxes.
+// Grey filled block --- used for callouts / definition boxes.
 #let gblock(body, inset: 0.4em, outset: 0.4em, width: 100%) = block(
   fill: luma(235),
   inset: inset,
@@ -97,7 +97,7 @@
   width: width,
 )[#body]
 
-// White bordered block — lighter-weight callout.
+// White bordered block --- lighter-weight callout.
 #let lblock(body, inset: 0.4em, outset: 0.4em, width: 100%) = block(
   fill: white,
   stroke: 0.5pt + luma(220),
@@ -107,7 +107,7 @@
   width: width,
 )[#body]
 
-// Metropolis default primary — use for bars, accents, comparison "good" sides.
+// Metropolis default primary --- use for bars, accents, comparison "good" sides.
 #let accent = rgb("#EB811B")
 
 // Epigraph for a `=` section slide. Lives in the section body so
@@ -119,7 +119,7 @@
   )[
     #set text(size: 1.05em, style: "italic", fill: luma(70))
     #set par(leading: 0.5em)
-    “#quote”
+    "#quote"
     #v(0.0em)
     #align(right, text(size: 0.72em, style: "normal", fill: luma(110))[--- #by])
   ]
@@ -159,7 +159,7 @@
 
 // Survival rates "because" failure causes, with the source note. Used twice:
 // once when introducing failure, once when coming back to it. `aside` rides in
-// the spare column on the right — pass an `uncover(..)` to reveal a question.
+// the spare column on the right --- pass an `uncover(..)` to reveal a question.
 #let failure-stats(aside: none) = {
   let pct(n) = [
     #text(size: 4em)[#n]#text(size: 1.0em, baseline: -1.6em)[%]
@@ -252,7 +252,7 @@
 #let stage-cols = (..stages.map(_ => 1fr), 0.7em)
 
 // Reusable "Idea → … → Maturity" header: six pills on an arrow band.
-// Call it as the FIRST thing in a slide body — the fixed height is what keeps
+// Call it as the FIRST thing in a slide body --- the fixed height is what keeps
 // it in the same place from slide to slide.
 //   #stage-strip()                      // all neutral
 //   #stage-strip(active: "Prototyping") // highlight the stage this slide is about
@@ -269,7 +269,7 @@
     width: 100%,
     height: 2.0em,
     radius: 0.25em,
-    // lighten, not transparentize — the ribbon must not show through the pill
+    // lighten, not transparentize --- the ribbon must not show through the pill
     fill: if name == active { accent.lighten(82%) } else { luma(224) },
     stroke: if name == active { 0.8pt + accent },
   )[
@@ -306,7 +306,7 @@
 }
 
 // Slide wrapper that pins the strip to the top of the body. Use it instead of
-// calling `stage-strip` directly — the theme centres slide bodies vertically,
+// calling `stage-strip` directly --- the theme centres slide bodies vertically,
 // which would otherwise drift the strip with the amount of content below it.
 //   == Which stages you see
 //   #show: staged.with(active: "Idea")

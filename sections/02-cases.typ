@@ -43,7 +43,7 @@
 
 // Full-bleed slide: no margins, no header, no footer. The config is merged into
 // this slide's own `self`, so it dies with the slide instead of leaking into the
-// rest of the deck — which is also why it is a `#slide` call and not a `==`
+// rest of the deck --- which is also why it is a `#slide` call and not a `==`
 // heading.
 #let bleed-slide(body) = touying-slide-wrapper(self => {
   self = utils.merge-dicts(self, config-page(

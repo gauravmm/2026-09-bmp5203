@@ -1,4 +1,4 @@
-# BMP5203 — Decision-Making in Business & AI
+# BMP5203 -- Decision-Making in Business & AI
 
 Guest lecture for **BMP5203 Competitive Strategy, Digitisation, and AI** (NUS).
 Presenter: Dr Gaurav Manek.

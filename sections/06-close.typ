@@ -5,7 +5,7 @@
 = Dangers
 
 #speaker-note[
-  - Last act. Specific dangers of AI and SaaS — then the short version
+  - Last act. Specific dangers of AI and SaaS --- then the short version
   - Four we will walk: no moat, platform risk, unexpected behaviour, model subsidy
   - And many, many more
 ]
@@ -72,7 +72,7 @@
     #v(0.35em)
     #set list(spacing: 0.55em)
     - Innovation
-    - IP — patents or secrets
+    - IP --- patents or secrets
     - Network effects
     - Trust and compliance
       #text(size: 0.82em, fill: luma(80))[IMDA's Model AI Governance Framework,
@@ -177,7 +177,7 @@
 
     #v(0.55em)
     #gblock(inset: 0.7em, outset: 0pt)[
-      Build to tolerate *vastly greater* prices for AI — especially LLMs.
+      Build to tolerate *vastly greater* prices for AI --- especially LLMs.
     ]
   ],
   [
@@ -226,7 +226,7 @@
         fill: luma(80),
       )[Expensive. They depreciate. They need data and maintenance.]
     - Institutional buy-in is the biggest hurdle.
-    - Risk surface is greatly amplified — manage it well. #pause
+    - Risk surface is greatly amplified --- manage it well. #pause
   ],
   // QR plus its call to action, boxed together so they read as one card
   lblock(inset: (x: 1.2em, y: 1.2em), outset: 0pt, width: auto)[

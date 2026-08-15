@@ -173,7 +173,7 @@
   [],
 
   [],
-  ..("1–5", "3–15", "15–50", "50–100", "100–1000").map(s => align(
+  ..("1\u{2013}5", "3\u{2013}15", "15\u{2013}50", "50\u{2013}100", "100\u{2013}1000").map(s => align(
     center,
     text(size: 0.78em, weight: "bold")[#s],
   )),
@@ -254,10 +254,9 @@ control their *burn rate*.
 )
 
 #v(0.8em)
-// touying eats a literal `---` in body text (it is a subslide marker), so use the glyph
 What do you trade for investment?
 #pause
-*Equity* — the value and ownership of your company.
+*Equity*: the value and ownership of your company.
 
 #speaker-note[
   - Rounds step rightwards and downwards: each one comes later and buys less risk
@@ -306,7 +305,7 @@ What do you trade for investment?
 
 #show: staged
 
-// Each exit spans the stages where it is realistic — one band instead of the
+// Each exit spans the stages where it is realistic --- one band instead of the
 // same label repeated in every column.
 // Every band is two lines high, whether its label wraps or not.
 #let exit-band(label) = band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 2.5em)
