@@ -43,21 +43,30 @@
   columns: (1fr, 1fr),
   gutter: 1.4em,
   [
-    + *How firms fail* \
-      #text(size: 0.85em, fill: luma(80))[Stages · great filters]
+    // one entry per `=` heading, in deck order
+    #set enum(spacing: 0.7em)
+    #let sub(body) = text(size: 0.85em, fill: luma(80))[#body]
 
-    + *Case studies* \
-      #text(size: 0.85em, fill: luma(80))[Juicero · WebVan · what investors buy]
+    + *From idea to exit* \
+      #sub[Stages · funding · rounds · equity]
+
+    + *What do investors look for?* \
+      #sub[where the money comes from]
+
+    + *How firms fail* \
+      #sub[The great filters]
 
     + *The hinge* \
-      #text(size: 0.85em, fill: luma(80))[MBA-student disease · Chesterton's Fence]
+      #sub[MBA-student disease · how to use AI in business]
 
-    4. *How to use AI* \
-      #text(size: 0.85em, fill: luma(80))[Model · action · agents]
+    + *What is an agent* \
+      #sub[Tokens · billing · agents using agents]
 
-    5. *Dangers* \
-      #text(size: 0.85em, fill: luma(80))[Moat · platform · subsidy · Jevons]
+    + *Agents in the wild* \
+      #sub[Copilot · Klarna · Replit · theory of mind]
 
+    + *Dangers* \
+      #sub[Moat · platform · subsidy · Jevons]
   ],
   [
     #lblock(inset: (x: 0.8em, y: 0.7em), outset: 0pt)[

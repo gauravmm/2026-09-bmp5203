@@ -29,8 +29,7 @@
     #set list(spacing: 0.9em)
     - Machine that presses pre-made juices out of mylar packaging.
     - Sold machine for US\$400, juice pack for \$5--7.
-    - DRM on juice pack so it would only squeeze original packs within their best-before date. #pause
-    - Fails the *idea* filters.
+    - DRM on juice pack so it would only squeeze original packs within their best-before date.
   ],
 )
 
@@ -55,6 +54,7 @@
   #image("02-cases/juicero-guardian.png", width: 120%, height: 120%, fit: "cover")
 ]
 
+#pause
 #place(bottom + right, dx: 1em, dy: -1em)[
   #text(size: 1.9em, weight: "bold")[How did they\ raise \$120M?]
 ]
