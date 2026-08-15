@@ -69,7 +69,7 @@
     Protect the firm from being cloned or cannibalised.
 
     #v(0.35em)
-    #set list(marker: text(fill: accent)[•], spacing: 0.55em)
+    #set list(spacing: 0.55em)
     - Innovation
     - IP — patents or secrets
     - Network effects
@@ -182,7 +182,7 @@
 == When working ON AI
 
 #align(horizon)[
-  #set list(marker: text(fill: accent)[•], spacing: 0.62em)
+  #set list(spacing: 0.62em)
   - You must have more than just AI
   - Don't be an "LLM-wrapper"
   - Expect rising cost and aggressive competition
@@ -203,7 +203,7 @@
 == When working in a firm
 
 #align(horizon)[
-  #set list(marker: text(fill: accent)[•], spacing: 0.7em)
+  #set list(spacing: 0.7em)
   - Exploit a comparative advantage — and *protect* it \
     #text(size: 0.82em, fill: luma(80))[IP, secrets, trust, certifications.]
   - Talk to customers. Correlate what they say. \

@@ -1,5 +1,6 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, accent, section-quote
+#import "@preview/cetz:0.3.4": canvas, draw
+#import "/common.typ": accent, gblock, lblock, section-quote
 
 = Case studies
 
@@ -12,47 +13,24 @@
   - We are going to look at failures on purpose.
 ]
 
-== Filter: Idea
+== Case Study: Juicero
 
 #grid(
-  columns: 1fr,
-  rows: (1fr, 1fr, 1fr, 1fr),
-  row-gutter: 0.5em,
-  ..(
-    ([1], [Is the problem worth solving?]),
-    ([2], [Does your idea solve the problem?]),
-    ([3], [Can you collect money for solving the problem?]),
-    ([4], [Can you raise funds?]),
-  ).map(((n, q)) => lblock(inset: 0.7em, outset: 0pt)[
-    #grid(
-      columns: (1.7em, 1fr),
-      column-gutter: 0.55em,
-      align: horizon,
-      text(fill: accent, weight: "bold", size: 1.35em)[#n],
-      text(size: 1.15em)[#q],
-    )
-  ]),
-)
-
-#speaker-note[
-  - Four questions at the Idea filter. Walk through them slowly; the Juicero case hangs on these.
-  - Is the problem worth solving, does the idea solve it, can you collect money for solving it, and can you raise funds?
-]
-
-== Juicero
-
-#grid(
-  columns: (0.9fr, 1.25fr),
+  columns: (auto, 1.25fr),
   gutter: 1.3em,
   align: horizon,
-  block(radius: 0.4em, clip: true, width: 100%)[
-    #image("/media/juicero.jpg", width: 100%)
+  block(radius: 0.4em, clip: true)[
+    #image("/media/juicero.jpg", height: 100%)
   ],
   [
-    #set list(marker: text(fill: accent)[•], spacing: 0.9em)
+    #text(size: 1.9em, weight: "bold")[Juicero]
+    #v(0.5em)
+
+    #set list(spacing: 0.9em)
     - Machine that presses pre-made juices out of mylar packaging.
     - Sold machine for US\$400, juice pack for \$5--7.
-    - DRM on juice pack so it would only squeeze original packs within their best-before date.
+    - DRM on juice pack so it would only squeeze original packs within their best-before date. #pause
+    - Fails the *idea* filters.
   ],
 )
 
@@ -61,19 +39,27 @@
   - The product is the joke; the raise is the lesson.
 ]
 
-== How did they raise \$120M?
+// Full-bleed slide: no margins, no header, no footer. The config is merged into
+// this slide's own `self`, so it dies with the slide instead of leaking into the
+// rest of the deck — which is also why it is a `#slide` call and not a `==`
+// heading.
+#let bleed-slide(body) = touying-slide-wrapper(self => {
+  self = utils.merge-dicts(self, config-page(margin: 0em, header: none, footer: none))
+  touying-slide(self: self, body)
+})
 
-#grid(
-  columns: (1fr, 1fr),
-  gutter: 0.8em,
-  align: top,
-  block(stroke: 0.5pt + luma(200), radius: 0.25em, clip: true, width: 100%)[
-    #image("/media/juicero-guardian.png", width: 100%)
-  ],
-  block(stroke: 0.5pt + luma(200), radius: 0.25em, clip: true, width: 100%)[
-    #image("/media/juicero-techcrunch.png", width: 100%)
-  ],
-)
+
+== Case Study: Juicero
+
+#place(top + left, dx: -30mm, dy: -6mm)[
+  #image("/media/juicero-guardian.png", width: 120%, height: 120%, fit: "cover")
+]
+
+#place(bottom + right, dx: 1em, dy: -1em)[
+  #text(size: 1.9em, weight: "bold")[How did they\ raise \$120M?]
+]
+
+
 
 #speaker-note[
   - They raised \$120 million.
@@ -84,43 +70,78 @@
 
 == What do investors look for?
 
-#let flow-card(body) = block(
-  fill: white,
-  stroke: 0.5pt + luma(220),
-  inset: 0.7em,
-  radius: 0.4em,
-  width: 100%,
-  height: 100%,
-)[#body]
+// Many limited partners fund one fund; that fund backs many startups. The
+// greyed-out "Investment Fund" rows are the competing funds we are not following.
+#let lps = (
+  [Institutional investors],
+  [Pension funds],
+  [Insurance companies],
+  [University endowments],
+  [Sovereign wealth funds],
+  [Family offices],
+  [High-net-worth individuals],
+)
+
+#let money-flow = canvas({
+  import draw: *
+
+  let s = 0.95 // row spacing
+  let y(i) = (3 - i) * s
+  let thin = (paint: accent, thickness: 0.9pt)
+  let head = (end: ">", fill: accent, scale: 0.5)
+  // Fans converge on / radiate from a single point; the lines stop short of it
+  // (t) so seven arrowheads do not land on top of each other.
+  let t = 0.86
+  let lerp(a, b, f) = a + (b - a) * f
+  let fan-in = (9.4, 0)
+  let fan-out = (14.4, 0)
+
+  for (i, name) in lps.enumerate() {
+    content((6.9, y(i)), anchor: "east", text(size: 1em)[#name])
+    line(
+      (7.15, y(i)),
+      (lerp(7.15, fan-in.at(0), t), lerp(y(i), 0, t)),
+      stroke: thin,
+      mark: head,
+    )
+
+    // the fund we follow is the middle one; the rest are its competitors
+    let live = i == 3
+    content((11.9, y(i)), text(
+      size: 1em,
+      fill: if live { black } else { luma(185) },
+    )[Investment Fund])
+
+    line(
+      (lerp(fan-out.at(0), 16.4, 1 - t), lerp(0, y(i), 1 - t)),
+      (16.4, y(i)),
+      stroke: thin,
+      mark: head,
+    )
+    content((16.65, y(i)), anchor: "west", text(size: 1em)[Startup])
+  }
+
+  // Money out, money back: principal flows right, returns flow left.
+  let fat = (paint: accent, thickness: 7pt)
+  let fat-head = (end: ">", fill: accent, scale: 0.9)
+  content((6.9, -4.0), anchor: "east", text(size: 1em, weight: "bold")[Principal])
+  line((7.15, -4.0), (16.3, -4.0), stroke: fat, mark: fat-head)
+  line((16.3, -4.75), (7.15, -4.75), stroke: fat, mark: fat-head)
+  content((16.55, -4.75), anchor: "west", text(size: 1em, weight: "bold")[Return])
+})
 
 #align(horizon)[
   #grid(
-    columns: (1.45fr, auto, 1fr, auto, 0.9fr),
-    rows: 7.2cm,
-    column-gutter: 0.45em,
+    columns: (auto, 1fr),
+    column-gutter: 0.9em,
     align: horizon,
-    flow-card[
-      #text(weight: "bold")[Institutional investors]
-      #v(0.35em)
-      #set text(size: 0.82em)
-      #set list(marker: text(fill: accent)[•], spacing: 0.32em)
-      - Pension funds
-      - Insurance companies
-      - University endowments
-      - Sovereign wealth funds
-      - Family offices
-      - High-net-worth individuals
-    ],
-    text(size: 1.7em, fill: accent)[→],
-    flow-card[#align(center + horizon)[#text(weight: "bold")[Investment fund]]],
-    text(size: 1.7em, fill: accent)[→],
-    flow-card[#align(center + horizon)[#text(weight: "bold")[Startup]]],
+    money-flow,
+    // uncover, not #pause: inside a grid cell the space has to stay reserved or
+    // the diagram jumps sideways on the second subslide
+    uncover("2-", gblock(inset: 0.7em, outset: 0pt)[
+      Investors raise an *investment fund* from their customers and have *5--7 years* to return the principal plus interest.
+    ]),
   )
-
-  #v(0.75em)
-  #gblock(inset: 0.7em, outset: 0pt)[
-    Investors raise an investment fund from their customers and have *5--7 years* to return the principal plus interest.
-  ]
 ]
 
 #speaker-note[
@@ -130,107 +151,22 @@
 
 == What do investors look for?
 
-#let inv-card(title, items) = block(
-  fill: white,
-  stroke: 0.5pt + luma(220),
-  inset: 0.75em,
-  radius: 0.4em,
-  width: 100%,
-  height: 100%,
-)[
-  #text(weight: "bold")[#title]
-  #v(0.4em)
-  #set text(size: 0.88em)
-  #set list(marker: text(fill: accent)[•], spacing: 0.4em)
-  #for it in items [ - #it ]
-]
 
-#align(horizon)[
-  #grid(
-    columns: (1fr, 1fr, 1fr),
-    rows: 6.6cm,
-    gutter: 0.7em,
-    inv-card([Pressure], (
-      [5--7 years to return the fund],
-      [Competing with other funds for money and for startups],
-    )),
-    inv-card([Next-investor optimisation], (
-      [They exit by selling to the *next* investor],
-      [So they optimise for that buyer, not the market],
-      [Prone to fads],
-    )),
-    inv-card([100 → 10 → 1], (
-      [100 deals],
-      [10 break even],
-      [1 returns 100×],
-    )),
-  )
+#set text(size: 1.15em)
+#set list(spacing: 0.75em)
 
-  #v(0.7em)
-  #gblock(inset: 0.65em, outset: 0pt)[
-    High-risk, high-return. A raise is not a business.
-  ]
-]
+- Investors are under *constant pressure* to choose.
+  - 5--7 years to make a sufficient return.
+  - Competing with other investment funds for money and startups.
+- Investors optimise for what the *next* investor is looking for
+  - not eventual market success.
+  - *Prone to fads.*
+- They are only interested in high-risk, high-returns.
+  - Rule of thumb: 100 → 10 break-even → 1 makes 100× return.
 
 #speaker-note[
   - They exit by selling to the next investor inside their window --- so they optimise for what the next investor wants, not for eventual market success.
   - That makes them prone to fads. Juicero was a well-engineered object in a fashionable category.
   - Rule of thumb: 100 deals, 10 break even, 1 returns 100×. They only want high-risk, high-return.
   - Do not tour reducible vs irreducible uncertainty. One line if asked: a stable 4% bubble-tea stall loses to a 2% shot at 200×.
-]
-
-== Filter: Customer Discovery
-
-#grid(
-  columns: 1fr,
-  rows: (1fr, 1fr, 1fr, 1fr),
-  row-gutter: 0.5em,
-  ..(
-    ([1], [Will someone actually pay?]),
-    ([2], [Can someone pay for it?]),
-    ([3], [Other than the product, what do you need?]),
-    ([4], [Will your team fall apart?]),
-  ).map(((n, q)) => lblock(inset: 0.7em, outset: 0pt)[
-    #grid(
-      columns: (1.7em, 1fr),
-      column-gutter: 0.55em,
-      align: horizon,
-      text(fill: accent, weight: "bold", size: 1.35em)[#n],
-      text(size: 1.15em)[#q],
-    )
-  ]),
-)
-
-#speaker-note[
-  - Same four Customer Discovery questions we saw in the filters.
-  - Will someone actually pay, can they pay, what else do you need besides the product, and will the team fall apart?
-  - We will run WebVan through them. Do not expand M.A.N. here.
-]
-
-== WebVan
-
-#grid(
-  columns: (1.15fr, 1fr),
-  gutter: 1.1em,
-  align: horizon,
-  block(stroke: 0.5pt + luma(200), radius: 0.25em, clip: true, width: 100%)[
-    #image("/media/webvan.gif", width: 100%)
-  ],
-  [
-    #set list(marker: text(fill: accent)[•], spacing: 0.75em)
-    - Original grocery delivery website in 1999. One of the most famous busts of the 2001 dotcom bubble.
-    - Raised \$396M from VCs and \$375M in an IPO.
-
-    #v(0.7em)
-    #gblock(inset: 0.7em, outset: 0pt)[
-      #align(center)[_Why did they go bankrupt?_]
-    ]
-  ],
-)
-
-#speaker-note[
-  - Poor customer discovery --- people had a ritual of going to buy groceries, and no trust or culture for ordering food online.
-  - Poor investment --- a giant robotic warehouse whose capex was too high for the cost savings.
-  - Poor burn-rate management --- losing \$2M a day at the peak.
-  - Grocery is a tiny-margin business, and you need that.
 ]

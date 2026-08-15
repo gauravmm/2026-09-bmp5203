@@ -3,7 +3,7 @@
 
 #import "@preview/tiaoma:0.3.0": qrcode
 #import "@preview/numbly:0.1.0": numbly
-#import "/common.typ": big-section-slide, gblock, lblock
+#import "/common.typ": accent, big-section-slide, gblock, lblock
 
 #show: metropolis-theme.with(
   aspect-ratio: "16-9",
@@ -23,6 +23,10 @@
 )
 
 #set heading(numbering: numbly("{1}.", default: "1.1"))
+
+// Deck-wide list style. Slides that need tighter or looser bullets override the
+// spacing only — the marker is set here, once.
+#set list(marker: text(fill: accent)[•], spacing: 0.4em)
 
 #title-slide()
 

@@ -139,13 +139,18 @@
 )
 
 // Card used in the great-filters grid.
-#let filter-card(title, items) = lblock(inset: 0.55em, outset: 0pt)[
-  #text(weight: "bold", size: 0.95em)[#title]
-  #v(0.25em)
-  #set text(size: 0.72em)
-  #set list(marker: text(fill: accent)[•], spacing: 0.35em)
-  #for it in items [- #it]
-]
+// Two rows: title row is fixed-height and bottom-aligned so titles sit on a
+// common baseline whether they wrap to one line or two.
+#let filter-card(title, items) = grid(
+  rows: (2.2em, auto),
+  align: bottom,
+  row-gutter: 0.8em,
+  text(weight: "bold", size: 1em)[#title],
+  {
+    set text(size: 0.72em)
+    for it in items [#it #v(0em)]
+  },
+)
 
 // The six startup stages, in order. Also the column basis for `stage-strip`.
 #let stages = ("Idea", "Prototyping", "Go-to-market", "Early Growth", "Growth", "Maturity")

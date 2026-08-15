@@ -13,17 +13,20 @@
 // Investment rounds as a staircase: row i starts one stage further right than
 // row i-1 and spans two stages (the last one, IPO, spans one).
 #let round-cascade(labels) = {
-  labels.enumerate().map(((i, label)) => {
-    let span = if i == labels.len() - 1 { 1 } else { 2 }
-    (
-      ..range(i).map(_ => []),
-      grid.cell(
-        colspan: span,
-        band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 1.6em),
-      ),
-      ..range(6 - i - span).map(_ => []),
-    )
-  }).flatten()
+  labels
+    .enumerate()
+    .map(((i, label)) => {
+      let span = if i == labels.len() - 1 { 1 } else { 2 }
+      (
+        ..range(i).map(_ => []),
+        grid.cell(
+          colspan: span,
+          band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 1.6em),
+        ),
+        ..range(6 - i - span).map(_ => []),
+      )
+    })
+    .flatten()
 }
 
 = How firms fail
@@ -284,16 +287,6 @@ control their *burn rate*.
 #grid(
   columns: stage-cols,
   column-gutter: 0.3em,
-  row-gutter: 0.45em,
-  grid.cell(colspan: 2, band([Pre-Revenue], luma(228))),
-  grid.cell(colspan: 4, band([Revenue Generating], accent.transparentize(72%))),
-  [],
-)
-
-#v(0.5em)
-#grid(
-  columns: stage-cols,
-  column-gutter: 0.3em,
   row-gutter: 0.25em,
   align: horizon,
   grid.cell(rowspan: 5)[
@@ -310,7 +303,9 @@ control their *burn rate*.
 
 #v(0.8em)
 // touying eats a literal `---` in body text (it is a subslide marker), so use the glyph
-What do you trade for investment? *Equity* — the value and ownership of your company.
+What do you trade for investment?
+#pause
+*Equity* — the value and ownership of your company.
 
 #speaker-note[
   - Rounds step rightwards and downwards: each one comes later and buys less risk
@@ -331,7 +326,7 @@ What do you trade for investment? *Equity* — the value and ownership of your c
   grid.cell(rowspan: 5)[
     #text(size: 0.8em, weight: "bold")[
       Where does your investment come from?\
-      How much equity do you give up?
+      *How much equity do you give up?*
     ]
   ],
   ..round-cascade((
@@ -344,7 +339,6 @@ What do you trade for investment? *Equity* — the value and ownership of your c
 )
 
 #v(0.8em)
-#set list(marker: text(fill: accent)[•], spacing: 0.4em)
 - You can dilute your share to nothing very easily.
 - You can agree to innocuous terms that are very bad later.
 - You are usually at an information disadvantage about external issues.
@@ -355,49 +349,140 @@ What do you trade for investment? *Equity* — the value and ownership of your c
   - You are almost always the less-informed party at the table
 ]
 
+== The exit plan
+
+#show: staged
+
+// Each exit spans the stages where it is realistic — one band instead of the
+// same label repeated in every column.
+// Every band is two lines high, whether its label wraps or not.
+#let exit-band(label) = band(label, accent.lighten(80%), stroke: 0.8pt + accent, height: 2.5em)
+
+// Aside with a caret on its right edge, so it points at whatever follows it.
+#let callout-right(body, fill: luma(235)) = grid(
+  columns: (auto, 0.55em),
+  align: horizon,
+  box(fill: fill, radius: 0.3em, inset: (x: 0.7em, y: 0em), outset: (x: 0em, y: 0.3em))[
+    #set text(size: 0.8em)
+    #set align(left)
+    #body
+  ],
+  polygon(fill: fill, (0pt, 0pt), (0.55em, 0.45em), (0pt, 0.9em)),
+)
+
+// One row of the grid; each band is (first stage, stages spanned, label).
+// Bands must be given left to right. `note` fills the space before the first
+// band, right-aligned so its caret meets the band. The row is padded out to the
+// 7 columns of `stage-cols` (six stages plus the arrowhead).
+#let exit-row(note: none, ..bands) = {
+  let cells = ()
+  let col = 0
+  for (start, span, label) in bands.pos() {
+    if note != none and col == 0 {
+      cells.push(grid.cell(colspan: start, align: right + horizon, note))
+    } else {
+      cells += range(start - col).map(_ => [])
+    }
+    cells.push(grid.cell(colspan: span, align: horizon, exit-band(label)))
+    col = start + span
+  }
+  cells + range(7 - col).map(_ => [])
+}
+
+#grid(
+  columns: stage-cols,
+  column-gutter: 0.3em,
+  row-gutter: 0.25em,
+  ..exit-row((1, 3, [Sell IP]), (5, 1, [IPO])),
+  ..exit-row((2, 2, ["Acqui-hire"]), (5, 1, [Dividends])),
+  ..exit-row(
+    note: uncover("2", callout-right[
+      A *"distressed asset"* sale.
+    ]),
+    (3, 3, [M\&A]),
+  ),
+  ..exit-row((4, 2, [Bought out by majority shareholders])),
+  ..exit-row(
+    note: uncover("3-", callout-right[
+      *"Tag-along"* lets you sell on the same terms as the majority.\
+      *"Drag-along"* makes you sell when they do.
+    ]),
+    (5, 1, [Bought out by private equity]),
+  ),
+)
+
+#speaker-note[
+  - Every exit is only available from some stage onwards; the earlier ones never go away
+  - Sell IP is the early exit --- the team is the asset, or the patent is
+  - Acquihire: hired by a competitor, product discarded
+  - M\&A and buyout by majority shareholders once there is a real business to buy
+  - IPO, dividends and private equity only at maturity
+  - Tag-along lets you sell on the same terms as the majority; drag-along forces you to
+]
+
 == The Great Filters
 
 #show: staged
 
 // One column per stage, revealed left to right; each filter is the gate that
 // stage has to pass.
-#text(size: 0.86em)[
+#text(size: 1em)[
   #grid(
     columns: stage-cols,
     column-gutter: 0.3em,
     ..(
-      ([Validation], (
-        [Is the problem worth solving?],
-        [Does it solve the problem?],
-        [Can you collect money?],
-      )),
-      ([Customer Discovery], (
-        [Will someone actually pay?],
-        [Can someone pay for it? (The M.A.N.)],
-        [Other than the product, what do you need?],
-        [Will your team fall apart?],
-      )),
-      ([Product--Market Fit], (
-        [Do enough people have the same problem to pay for it?],
-        [Are you able to consistently sell?],
-        [What minor changes can I make to sell more?],
-      )),
-      ([Expanding Everything], (
-        [How to build sales channels and marketing?],
-        [How to scale production, operations, and distribution?],
-        [How to set prices?],
-      )),
-      ([Market Segments], (
-        [How to add new market segments? (The bowling-alley model)],
-      )),
-      ([Defending Position], (
-        [How to grow at CAGR?],
-        [How to avoid complacency?],
-        [How to defend against large players?],
-        [How not to be disrupted?],
-        [How to create shareholder value?],
-      )),
-    ).enumerate().map(((i, f)) => uncover(str(i + 1) + "-", filter-card(..f))),
+      (
+        [Validation],
+        (
+          [Is the problem worth solving?],
+          [Does it solve the problem?],
+          [Can you collect money?],
+        ),
+      ),
+      (
+        [Customer Discovery],
+        (
+          [Will someone actually pay?],
+          [Can someone pay for it? (The M.A.N.)],
+          [Other than the product, what do you need?],
+          [Will your team fall apart?],
+        ),
+      ),
+      (
+        [Product--Market Fit],
+        (
+          [Do enough people have the same problem to pay for it?],
+          [Are you able to consistently sell?],
+          [What minor changes can I make to sell more?],
+        ),
+      ),
+      (
+        [Expanding Everything],
+        (
+          [How to build sales channels and marketing?],
+          [How to scale production, operations, and distribution?],
+          [How to set prices?],
+        ),
+      ),
+      (
+        [Market Segments],
+        (
+          [How to add new market segments? (The bowling-alley model)],
+        ),
+      ),
+      (
+        [Defending Position],
+        (
+          [How to grow at CAGR?],
+          [How to avoid complacency?],
+          [How to defend against large players?],
+          [How not to be disrupted?],
+          [How to create shareholder value?],
+        ),
+      ),
+    )
+      .enumerate()
+      .map(((i, f)) => uncover(str(i + 1) + "-", filter-card(..f))),
     [],
   )
 ]

@@ -198,7 +198,7 @@
     #text(weight: "bold", size: 1.02em)[Well-defined modeling and actioning]
     #v(0.4em)
     #set text(size: 0.82em)
-    #set list(marker: text(fill: accent)[•], spacing: 0.42em)
+    #set list(spacing: 0.42em)
     - Translate Business ↔ Math
     - Well-defined business question and action
     - Well-defined (and realistic) success metric.
@@ -214,7 +214,7 @@
         #text(size: 0.7em, fill: luma(100), weight: "bold", tracking: 0.06em)[Measure ROI]
         #v(0.2em)
         #set text(size: 0.74em)
-        #set list(marker: text(fill: accent)[•], spacing: 0.32em)
+        #set list(spacing: 0.32em)
         - Buy-in from management
         - Link to business KPI
         - Data and model as business assets
@@ -224,7 +224,7 @@
         #text(size: 0.7em, fill: luma(100), weight: "bold", tracking: 0.06em)[Buy-in from users]
         #v(0.2em)
         #set text(size: 0.74em)
-        #set list(marker: text(fill: accent)[•], spacing: 0.32em)
+        #set list(spacing: 0.32em)
         - User-friendliness
         - Explainability of model output
         - Carefully choose which decisions to make, and which to leave to users
@@ -250,7 +250,7 @@
     #text(weight: "bold", size: 1.05em)[Data pipeline]
     #v(0.4em)
     #set text(size: 0.86em)
-    #set list(marker: text(fill: accent)[•], spacing: 0.48em)
+    #set list(spacing: 0.48em)
     - Access to good quality and sufficient data.
     - Continuously collect data in the normal course of business.
     - Model drift: models degrade in quality over time as the world slowly changes.
@@ -259,7 +259,7 @@
     #text(weight: "bold", size: 1.05em)[Infrastructure]
     #v(0.4em)
     #set text(size: 0.86em)
-    #set list(marker: text(fill: accent)[•], spacing: 0.48em)
+    #set list(spacing: 0.48em)
     - Data cleaning
     - Warehousing
     - Sunsetting
