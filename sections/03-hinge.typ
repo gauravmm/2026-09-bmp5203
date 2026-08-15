@@ -36,7 +36,7 @@
 ]
 
 #let comp-color = rgb("#7B5EA7")
-#let diagram-cols = (1fr, 0.8fr, 1fr)
+#let diagram-cols = (1fr, 0.5fr, 1fr)
 
 #let ai-use-diagram(footer: none) = {
   let row(left-card, mid, right-card) = grid(
@@ -55,7 +55,7 @@
     dir: ttb,
     spacing: 0.35em,
     region([Business], top, accent, row(
-      ai-card[Problem][Which website users will buy?],
+      ai-card[Problem][Which users will buy from the website?],
       [],
       ai-card[Actionable Policy][Email coupons to specific users.],
     )),

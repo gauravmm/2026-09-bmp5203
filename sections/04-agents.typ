@@ -80,8 +80,8 @@
     - Behaviour *surprisingly* emerges at scale
   ],
   [
-    - Fluent is not the same as *correct*
-    - Confident is not the same as *grounded*
+    - Confident is not the same as *correct*
+    - Fluent is not the same as *cogent*
     - It has our *words*, not our *world*
   ],
 )
@@ -93,6 +93,88 @@
   - "Words, not world" is the manager takeaway: it will miss why a fence is there
 ]
 
+== What is a Token?
+
+#let aside(title, body) = box(
+  fill: luma(240),
+  width: 100%,
+  height: 100%,
+  radius: 0.5em,
+  inset: 0.5em,
+  grid(
+    rows: (2em, 1fr),
+    align: horizon,
+    text(weight: "bold", size: 1.5em)[#title],
+    body,
+  ),
+)
+
+#let tok-colors = (rgb("#FFD966"), rgb("#B6D7A8"), rgb("#9FC5E8"), rgb("#EA9999"))
+#let tok(n, content) = box(
+  fill: tok-colors.at(calc.rem(n, tok-colors.len())),
+  inset: (x: 0.2em, y: 0.15em),
+  radius: 0.1em,
+)[#content]
+
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 1em,
+  [
+    Tokens are *chunks* of text
+
+    - Roughly 1 token ≈ ¾ of an English word
+    - Varies for code, other languages, numbers
+    - Punctuation and spaces count
+
+    Basic unit of computation for an LLM. Everything in and out is in tokens.
+
+    #v(0.5em)
+
+    *Matters because:*
+    - Pay per token ingested
+    - Pay per token produced
+    - Context windows are measured in tokens
+  ],
+  aside([GPT-5.x Tokenizer], [
+    #[
+      #set text(font: "DejaVu Sans Mono", size: 0.78em)
+      #tok(0)[Many]#tok(1)[ words]#tok(2)[ map]#tok(3)[ to]#tok(4)[ one]#tok(5)[ token]#tok(6)[,]#tok(7)[ but]#tok(
+        8,
+      )[ some]#tok(9)[ don]#tok(10)['t]#tok(11)[:]#tok(12)[ indiv]#tok(13)[isible]#tok(14)[.]
+
+      #v(0.4em)
+      #tok(0)[Unicode]#tok(1)[ characters]#tok(2)[ like]#tok(3)[ emojis]#tok(4)[ may]#tok(5)[ be]#tok(
+        6,
+      )[ split]#tok(
+        7,
+      )[ into]#tok(8)[ many]#tok(9)[ tokens]#tok(10)[ containing]#tok(11)[ the]#tok(12)[ underlying]#tok(
+        13,
+      )[ bytes]#tok(14)[:]#tok(15)[ ◆]#tok(16)[◆]#tok(17)[◆]#tok(18)[◆]
+
+      #v(0.4em)
+      #tok(0)[Sequences]#tok(1)[ of]#tok(2)[ characters]#tok(3)[ commonly]#tok(4)[ found]#tok(5)[ next]#tok(6)[ to]#tok(
+        7,
+      )[ each]#tok(8)[ other]#tok(9)[ may]#tok(10)[ be]#tok(11)[ grouped]#tok(12)[ together]#tok(13)[:]#tok(
+        14,
+      )[123]#tok(
+        15,
+      )[456]#tok(16)[789]#tok(17)[0]
+    ]
+
+    #v(1em)
+    #h(1fr)from the #link("https://platform.openai.com/tokenizer")[OpenAI Tokenizer Demo]
+  ]),
+)
+
+#speaker-note[
+  - Output is from the real GPT-5.x tokenizer
+]
+
+
+== How Usage Is Billed
+
+TODO
+
 == Simple LLM vs Agentic AI
 
 #grid(
@@ -102,11 +184,15 @@
   [
     #align(center, text(weight: "bold", size: 1.15em)[Simple LLM])
     #include "/figures/simple-llm.typ"
+    #align(center, [_"What is the answer to this question?"_])
     #pause
   ],
   [
     #align(center, text(weight: "bold", size: 1.15em)[Agentic AI])
     #include "/figures/agentic-loop.typ"
+
+
+    #align(center, [_"Given this goal, what do I do next?"_])
   ],
 )
 
@@ -117,207 +203,57 @@
   - Same model on both sides. The difference is the harness
 ]
 
-== Anatomy of an agent
 
-#grid(
-  columns: (1.05fr, 1fr),
-  gutter: 1.2em,
-  align: top,
-  [
-    An *agent* is an LLM plus a *harness*.
+// Full-bleed image slide: drop the right + bottom margins via slide config
+// (a mid-slide `#set page` would inject a blank page in touying).
+== Agents using Agents using Agents using...
+#slide(
+  config: config-page(margin: (top: 3em, bottom: 0pt, left: 2em, right: 0pt)),
+)[
+  // `overlap`: width of the text box. Raise it to extend the text rightward
+  // over the image; lower it to pull the text back to the left.
+  #let overlap = 7cm
+  #box(width: 100%, height: 100%)[
+    #place(right + horizon, image("../media/whatsapp-1.jpeg", height: 100%))
+    #place(left + top, dy: 1em, box(width: overlap, text(
+      size: 1.8em,
+      weight: "bold",
+    )[Agents all the way down.]))
+  ]
 
-    The harness:
-
-    - Gives the model *tools* --- read files, run code, call APIs
-    - Runs a *loop* --- act, observe, act again
-    - Decides when to keep going and when to stop
-
-    #v(0.7em)
-
-    #lblock(inset: (x: 1em, y: 0.85em), outset: 0pt)[
-      *Same LLM*, new prompt: \
-      _"Given this goal, what do I do next?"_
-    ]
-  ],
-  [
-    #gblock(inset: (x: 0.7em, y: 0.55em), outset: 0.15em)[
-      *Agent* --- LLM + harness \
-      #text(size: 0.88em)[Orchestrates the model in a loop, with tools, toward a goal.]
-    ]
-    #v(0.55em)
-    #gblock(inset: (x: 0.7em, y: 0.55em), outset: 0.15em)[
-      *Tool use* --- external functions \
-      #text(size: 0.88em)[Search, code, files, APIs. The model chooses *when* and *how*.]
-    ]
-    #v(0.55em)
-    #gblock(inset: (x: 0.7em, y: 0.55em), outset: 0.15em)[
-      *Human in the loop* \
-      #text(size: 0.88em)[Interrupt, steer, or review *before* the output leaves the building.]
-    ]
-  ],
-)
-
-#speaker-note[
-  - Agent is a pattern, not a product
-  - Harness = the software around the model: loop + tools + stop condition
-  - Skip skills marketplaces and sub-agent swarms --- wrong altitude
-  - Human in the loop is a design choice, not a feature flag
-  - Next slide: how much harness you actually need
+  #speaker-note[
+    - Agent teams (left): a few agents talk peer-to-peer
+    - Dynamic workflows (right): one orchestrator fans out to N tasks — implementer → verifiers → fixer — then returns when done
+    - N can be in the hundreds: this is the autonomous end of the complexity ladder
+  ]
 ]
 
-== The complexity ladder
+// Full-bleed image slide: drop the right + bottom margins via slide config
+// (a mid-slide `#set page` would inject a blank page in touying).
+#slide(
+  config: config-page(margin: (top: 3em, bottom: 0pt, left: 2em, right: 0pt)),
+)[
+  // `overlap`: width of the text box. Raise it to extend the text rightward
+  // over the image; lower it to pull the text back to the left.
+  #let overlap = 7cm
+  #box(width: 100%, height: 100%)[
+    #place(right + horizon, image("../media/whatsapp-2.jpeg", height: 100%))
+    #place(left + top, dy: 1em, box(width: overlap, text(
+      size: 1.8em,
+      weight: "bold",
+    )[Agents all the way down.
 
-#grid(
-  columns: (1.45fr, 1fr),
-  gutter: 1.2em,
-  {
-    let rung(n, title, gloss) = grid(
-      columns: (1.8em, 1fr),
-      column-gutter: 0.55em,
-      align: (center + horizon, horizon),
-      text(weight: "bold", size: 1.7em, fill: accent)[#n],
-      lblock(inset: (x: 0.7em, y: 0.42em), outset: 0pt)[
-        #text(weight: "bold")[#title] \
-        #text(size: 0.82em, fill: luma(80))[#gloss]
-      ],
-    )
-    set block(spacing: 0.55em)
-    rung([1], [Single well-crafted prompt], [One shot, one answer. A person still does the work around it.])
-    rung([2], [Chain of prompts with checks], [Steps, and someone --- or something --- looks at each.])
-    rung([3], [Single agent with memory + tools], [It can act, loop, and remember. Blast radius grows.])
-    rung([4], [Full multi-agent pipeline], [Supervisor, specialists, handoffs. Expensive when it fails.])
-  },
-  align(horizon)[
-    #gblock(inset: (x: 0.9em, y: 1.1em), outset: 0pt)[
-      *Match the tool to the problem.*
+      #emph[Maybe].]))
+  ]
 
-      #v(0.45em)
-
-      Errors at lower rungs are cheaper.
-
-      #v(0.45em)
-
-      Do not start on rung 4.
-    ]
-  ],
-)
-
-#speaker-note[
-  - This is the stop rule for automation
-  - Rung 1 error: a bad draft. Rung 4 error: a deleted database, or 700 reps replaced badly
-  - Most "we need agents" requests are a rung-1 or rung-2 problem
-  - Ask: what happens when this is wrong? That tells you the rung
-  - DAVID is rung 4 with a human on every output; Klarna climbed too far, too fast
+  #speaker-note[
+    - Same diagram, now with the price tag attached
+    - Every box is a model call; fan-out multiplies token spend fast
+    - The fat cat got rich on your bill — budget and cap autonomous runs before you let them loose
+  ]
 ]
 
 = Agents in the wild
-
-== Two production patterns
-
-#grid(
-  columns: (1fr, 1fr),
-  rows: (1fr,),
-  gutter: 1.4em,
-  align: top,
-  [
-    #image("/media/klarna.png", height: 1.25cm)
-
-    #text(size: 0.88em, fill: luma(100))[Customer support that went "too far"]
-
-    #v(0.25em)
-
-    - Feb 2024: claimed the work of *700 reps* --- \$40M profit boost
-    - Quality decayed on disputes, fraud, bereavement
-    - May 2025: CEO walked it back \
-      _"we went too far"_ · _"what you end up having is lower quality"_
-
-    #v(1fr)
-    #lblock(inset: (x: 0.7em, y: 0.5em), outset: 0pt)[
-      The *metric* became the goal.
-    ]
-  ],
-  [
-    #image("/media/jpmorgan.png", height: 1.05cm)
-
-    #text(weight: "bold", size: 1.15em)[Ask D.A.V.I.D.] \
-    #text(size: 0.88em, fill: luma(100))[Multi-agent investment research]
-
-    #v(0.25em)
-
-    - *Supervisor* + *specialist* sub-agents \
-      (SQL, retrieval, analytics)
-    - A human advisor *reviews every output* before it reaches a client
-    - ≈95% cut in research time
-
-    #v(1fr)
-    #lblock(inset: (x: 0.7em, y: 0.5em), outset: 0pt)[
-      Human in the loop is the product.
-    ]
-  ],
-)
-
-#speaker-note[
-  - Two production patterns, not a fail compilation
-  - Klarna: the triage-bot warning with a brand name --- cost and deflection were the spec
-  - DAVID: supervisor + specialists + review on every output --- the pattern to copy
-  - ≈95% time cut *with* a human still signing --- speed is not the same as removal
-  - Ask: what metric would your last employer have accidentally maximised?
-]
-
-== Alignment by scope
-
-#grid(
-  columns: (1.05fr, 1fr),
-  gutter: 1.3em,
-  align: top,
-  [
-    #image("/media/hippocratic.png", height: 1.7cm)
-
-    #text(size: 0.88em, fill: luma(100))[Voice agents for healthcare]
-
-    #v(0.3em)
-
-    - Post-discharge follow-up, medication walkthroughs
-    - 180M+ patient interactions; *0 reported severe-harm events*
-    - Never diagnoses --- only educates
-
-    #v(0.65em)
-    #gblock(inset: (x: 0.75em, y: 0.6em), outset: 0pt)[
-      *Scope is the alignment.* \
-      #text(size: 0.9em)[A mistake is a clumsy call, not a wrong prescription.]
-    ]
-  ],
-  [
-    #text(weight: "bold", size: 1.15em)[Specification gaming]
-
-    Tell the system the *literal* target, and it will hit that --- not your intent.
-
-    #v(0.45em)
-
-    #lblock(inset: (x: 0.7em, y: 0.55em), outset: 0pt)[
-      Coding agent, "make all tests pass" \
-      → *deletes the failing tests.*
-    ]
-    #v(0.45em)
-    #lblock(inset: (x: 0.7em, y: 0.55em), outset: 0pt)[
-      Triage bot, "resolve cases quickly" \
-      → marks everything *"no action."*
-    ]
-
-    #v(0.55em)
-    #text(size: 0.88em, fill: luma(80))[
-      Hippocratic refuses the job that would game the patient.
-    ]
-  ],
-)
-
-#speaker-note[
-  - Alignment by scope, not by a bigger guardrail model
-  - Low blast radius is a design choice --- Chesterton applied to automation
-  - Spec gaming: Klarna-shaped, just smaller --- the metric is what the agent pursues
-  - Paperclip maximiser in a sentence if someone asks; don't linger
-  - Tie back to designing for imperfect agents
-]
 
 == Unexpected behaviour
 
