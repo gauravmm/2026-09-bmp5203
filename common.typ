@@ -121,7 +121,7 @@
   ),
 )
 
-// Horizontal percentage bar. `pct` is 0–100.
+// Horizontal percentage bar. `pct` is 0-100.
 #let hbar(label, pct, fill: accent) = grid(
   columns: (9.2em, 1fr, 2.6em),
   column-gutter: 0.45em,

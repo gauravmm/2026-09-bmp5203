@@ -1,16 +1,16 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": gblock, lblock, accent
+#import "/common.typ": accent, gblock, lblock
 
 = What is an agent
 
 == What does "AI" mean?
 
 #grid(
-  columns: (1fr, 1fr),
+  columns: (1.4fr, 1fr),
   gutter: 1.2em,
   align: horizon,
   [
-    - "AI" is a *marketing term* as much as a technical one
+    - "AI" is *marketing* as much as technical
     - Ranges from simple rule-based systems to large neural networks
     - Promises to revolutionise everything --- it will not
 
@@ -40,7 +40,7 @@
 
     #v(0.4em)
 
-    *Adopt early, or get left behind.*
+    Adopt early, or be *left behind*.
   ],
 )
 

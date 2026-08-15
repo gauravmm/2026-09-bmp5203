@@ -11,9 +11,9 @@
   width: 100%,
   height: 100%,
 )[
-  #text(size: 0.68em, fill: luma(110), weight: "bold")[#label]
-  #v(0.22em)
-  #text(weight: "bold", size: 0.92em)[#body]
+  #text(size: 0.86em, fill: luma(110), weight: "bold")[#label]
+  #v(-0.5em)
+  #text(size: 1em)[#body]
 ]
 
 #let pill(name) = box(
@@ -23,48 +23,68 @@
   inset: (x: 0.45em, y: 0.18em),
 )[#text(size: 0.7em, weight: "bold")[#box[\+ #name]]]
 
-#let vlabel(name) = align(center + horizon)[
-  #rotate(-90deg, reflow: true)[
-    #text(weight: "bold", size: 0.68em, fill: accent, tracking: 0.14em)[#name]
-  ]
+// Dashed region enclosing one layer of the diagram. Its name sits inside the
+// box, on the edge that faces away from the other layer.
+#let region(name, tag-align, color, body) = block(
+  width: 100%,
+  stroke: (paint: color, thickness: 1pt, dash: "dashed"),
+  radius: 0.35em,
+  inset: (x: 0.6em, y: 0.5em),
+)[
+  #let tag = text(size: 0.62em, weight: "bold", fill: color, tracking: 0.1em)[#name]
+  #stack(dir: ttb, spacing: 0.45em, ..if tag-align == top { (tag, body) } else { (body, tag) })
 ]
 
-#let diagram-cols = (1.25cm, 1fr, 2.7cm, 1fr)
+#let comp-color = rgb("#7B5EA7")
+#let diagram-cols = (1fr, 0.8fr, 1fr)
 
 #let ai-use-diagram(footer: none) = {
-  let main = grid(
+  let row(left-card, mid, right-card) = grid(
     columns: diagram-cols,
-    rows: (5.6em, 1.45em, 6.4em),
-    column-gutter: 0.4em,
-    row-gutter: 0.28em,
+    rows: 4.2em,
+    column-gutter: 0.5em,
     align: horizon,
-    vlabel[BUSINESS],
-    ai-card[Problem][Which website users will buy?],
-    align(center + horizon)[
-      #stack(
-        dir: ttb,
-        spacing: 0.1em,
-        text(size: 0.65em, fill: luma(100), weight: "bold")[Actioning],
-        text(size: 1.35em, fill: luma(150))[→],
-      )
-    ],
-    ai-card[Actionable Policy][Email coupons to specific users.],
-    [],
-    align(center)[#text(size: 0.68em, fill: luma(100), weight: "bold")[Modeling ↓]],
-    [],
-    align(center)[#text(size: 0.68em, fill: luma(100), weight: "bold")[↑ Actioning]],
-    vlabel[COMPUTATIONAL],
-    ai-card[Problem][Predict likelihood to buy from website traces.],
-    align(center + horizon)[
-      #stack(
-        dir: ttb,
-        spacing: 0.22em,
-        pill[Time],
-        pill[Money],
-        pill[Data],
-      )
-    ],
-    ai-card[AI Solution][Given data, predicts odds that user will buy.],
+    left-card,
+    mid,
+    right-card,
+  )
+  let arrow(sym) = text(size: 1.6em, fill: luma(150))[#sym]
+  let step(name) = text(size: 0.78em, fill: luma(90), weight: "bold")[#name]
+
+  let main = stack(
+    dir: ttb,
+    spacing: 0.35em,
+    region([Business], top, accent, row(
+      ai-card[Problem][Which website users will buy?],
+      [],
+      ai-card[Actionable Policy][Email coupons to specific users.],
+    )),
+    // The two crossings between the layers: down into math, back up into a policy.
+    // same tracks as the card rows, so each label centres under its own card
+    grid(
+      columns: diagram-cols,
+      column-gutter: 0.5em,
+      align: horizon,
+      align(center)[#arrow[↘] #step[Modeling]],
+      [],
+      align(center)[#arrow[↗] #step[Actioning]],
+    ),
+    // ponytail: the computational cards sit inset from the business ones above,
+    // so the two layers read as nested rather than stacked
+    region([Computational], bottom, comp-color, pad(x: 2.6em, row(
+      ai-card[Problem][Predict likelihood to buy from  traces.],
+      align(center + horizon)[
+        #stack(
+          dir: ttb,
+          spacing: 0.22em,
+          arrow[→],
+          pill[Time],
+          pill[Money],
+          pill[Data],
+        )
+      ],
+      ai-card[AI Solution][Given data, predicts odds that user will buy.],
+    ))),
   )
   if footer == none {
     main
@@ -157,7 +177,16 @@
 
 == How to use AI in business
 
-#align(horizon, ai-use-diagram())
+// uncover, not #pause: the footer's space stays reserved so the diagram above it
+// does not shift when the cards land
+#align(horizon, ai-use-diagram(footer: uncover("2-", grid(
+  columns: diagram-cols,
+  column-gutter: 0.5em,
+  align: horizon,
+  warn-card[Garbage in, garbage out.][Website doesn't work in Chrome.],
+  align(center, text(size: 1.35em, fill: luma(150))[→]),
+  warn-card[Bad policy][Email coupons to non-Chrome users.],
+))))
 
 #speaker-note[
   - A business problem exists, phrased in a business way
@@ -168,70 +197,37 @@
   - Actioning turns the math into a policy someone will actually run
 ]
 
-== How #text(fill: accent)[NOT] to use AI in business
-
-#align(horizon, ai-use-diagram(footer: grid(
-  columns: diagram-cols,
-  column-gutter: 0.4em,
-  align: horizon,
-  [],
-  warn-card[Garbage in, garbage out.][Website doesn't work in Chrome.],
-  align(center, text(size: 1.35em, fill: luma(150))[→]),
-  warn-card[Bad policy][Email coupons to non-Chrome users.],
-)))
-
-#speaker-note[
-  - Garbage in, garbage out
-  - If the website does not work in Chrome, the traces say Chrome users never buy
-  - The model is "right"; the policy becomes: email coupons to non-Chrome users
-  - That is a data bug dressed up as a strategy
-]
-
 == AI adoption
 
+// ponytail: a full-height block pins the body to the top of the slide without a
+// `set align`, which would leak into every slide after this one
 #grid(
   columns: (1fr, 1.2fr),
-  gutter: 0.85em,
+  column-gutter: 1.2em,
   align: top,
-  lblock(inset: (x: 0.75em, y: 0.65em), outset: 0pt)[
-    #text(weight: "bold", size: 1.02em)[Well-defined modeling and actioning]
-    #v(0.4em)
-    #set text(size: 0.82em)
-    #set list(spacing: 0.42em)
+  [
+    *Well-defined modeling and actioning*
     - Translate Business ↔ Math
     - Well-defined business question and action
-    - Well-defined (and realistic) success metric.
+    - Well-defined success metric.
+      - Realistic limits
     - Matches the available data.
   ],
-  lblock(inset: (x: 0.75em, y: 0.65em), outset: 0pt)[
-    #text(weight: "bold", size: 1.02em)[Institutional buy-in]
-    #v(0.35em)
-    #grid(
-      columns: (1fr, 1fr),
-      gutter: 0.65em,
-      [
-        #text(size: 0.7em, fill: luma(100), weight: "bold", tracking: 0.06em)[Measure ROI]
-        #v(0.2em)
-        #set text(size: 0.74em)
-        #set list(spacing: 0.32em)
-        - Buy-in from management
-        - Link to business KPI
-        - Data and model as business assets
-        - Funding to maintaining data pipeline
-      ],
-      [
-        #text(size: 0.7em, fill: luma(100), weight: "bold", tracking: 0.06em)[Buy-in from users]
-        #v(0.2em)
-        #set text(size: 0.74em)
-        #set list(spacing: 0.32em)
-        - User-friendliness
-        - Explainability of model output
-        - Carefully choose which decisions to make, and which to leave to users
-        - Regulations (privacy and security)
-      ],
-    )
+  [
+    *Institutional buy-in*
+    - Measure ROI:
+      - buy-in from management,
+      - link to a business KPI,
+      - data and model as business assets,
+      - funding to maintain the data pipeline.
+    - Buy-in from users:
+      - user-friendliness,
+      - explainability of model output,
+      - care over which decisions to make and which to leave to users.
+    - Regulations (privacy and security).
   ],
 )
+#v(1fr)
 
 #speaker-note[
   - Two requirements: well-defined modeling and actioning, and institutional buy-in
@@ -243,22 +239,16 @@
 
 #grid(
   columns: (1.15fr, 1fr),
-  gutter: 0.85em,
+  column-gutter: 1.2em,
   align: top,
-  lblock(inset: (x: 0.75em, y: 0.7em), outset: 0pt)[
-    #text(weight: "bold", size: 1.05em)[Data pipeline]
-    #v(0.4em)
-    #set text(size: 0.86em)
-    #set list(spacing: 0.48em)
+  [
+    *Data pipeline*
     - Access to good quality and sufficient data.
     - Continuously collect data in the normal course of business.
     - Model drift: models degrade in quality over time as the world slowly changes.
   ],
-  lblock(inset: (x: 0.75em, y: 0.7em), outset: 0pt)[
-    #text(weight: "bold", size: 1.05em)[Infrastructure]
-    #v(0.4em)
-    #set text(size: 0.86em)
-    #set list(spacing: 0.48em)
+  [
+    *Infrastructure*
     - Data cleaning
     - Warehousing
     - Sunsetting
@@ -266,11 +256,12 @@
   ],
 )
 
-#v(0.7em)
-
+#v(0.4em)
+#pause
 #gblock(inset: (x: 0.8em, y: 0.55em), outset: 0pt)[
   Models drift as the world changes --- they are *not* an install-once asset.
 ]
+#v(1fr)
 
 #speaker-note[
   - Adoption also fails on plumbing

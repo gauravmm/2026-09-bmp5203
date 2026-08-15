@@ -17,7 +17,7 @@
     subtitle: [BMP5203 Competitive Strategy, Digitisation, and AI],
     author: [Dr. Gaurav Manek],
     date: datetime.today(),
-    institution: [NUS BMP5203],
+    institution: [NUS BMP5203 -- Fall 2026],
     logo: [🤖💥🧠],
   ),
 )
@@ -26,7 +26,9 @@
 
 // Deck-wide list style. Slides that need tighter or looser bullets override the
 // spacing only — the marker is set here, once.
-#set list(marker: text(fill: accent)[•], spacing: 0.4em)
+// Tight lines inside a point, generous air between points.
+#set par(leading: 0.5em)
+#set list(marker: text(fill: accent)[•], spacing: 0.8em)
 
 #title-slide()
 
