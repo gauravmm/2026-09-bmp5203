@@ -225,6 +225,7 @@
       - explainability of model output,
       - care over which decisions to make and which to leave to users.
     - Regulations (privacy and security).
+    - Certifications
   ],
 )
 #v(1fr)
@@ -233,6 +234,37 @@
   - Two requirements: well-defined modeling and actioning, and institutional buy-in
   - Buy-in from management *and* from users
   - A clever model with no KPI, no pipeline funding, and no one who will act on it is a science project
+  - IMDA's MGF is the local reference: voluntary, but it is the vocabulary buyers and regulators use
+]
+
+== Governance you will be asked about
+
+#grid(
+  columns: (auto, 1fr),
+  column-gutter: 1.2em,
+  align: horizon,
+  block(radius: 0.3em, clip: true, stroke: 0.5pt + luma(210))[
+    #image("03-hinge/imda-mgf-agentic.jpg", height: 8.4cm)
+  ],
+  [
+    *IMDA Model AI Governance Framework* \
+    #text(size: 0.86em)[
+      One for traditional AI, one for generative AI, and --- since 2026 --- one for *agentic* AI: internal governance, human oversight scaled to risk, and what to log when an agent acts on your behalf. Voluntary.
+    ]
+
+    #v(0.7em)
+    *ISO/IEC 42001* \
+    #text(size: 0.86em)[
+      The AI management system standard. Certifiable and audited, the way ISO 27001
+      is for security --- so it is the one a large customer can put in a contract.
+    ]
+  ],
+)
+
+#speaker-note[
+  - Two names worth knowing: IMDA's MGF (local, voluntary, the vocabulary) and ISO/IEC 42001 (certifiable)
+  - The agentic version is the new one --- it is about oversight and logging when software acts for you
+  - For a startup this is a moat question, not a legal one: the audit is what an enterprise buyer trusts
 ]
 
 == AI adoption — plumbing
