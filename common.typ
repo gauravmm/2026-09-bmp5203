@@ -147,6 +147,74 @@
   #for it in items [- #it]
 ]
 
+// The six startup stages, in order. Also the column basis for `stage-strip`.
+#let stages = ("Idea", "Prototyping", "Go-to-market", "Early Growth", "Growth", "Maturity")
+
+// Reusable "Idea → … → Maturity" header: six pills on an arrow band.
+// Call it as the FIRST thing in a slide body — the fixed height is what keeps
+// it in the same place from slide to slide.
+//   #stage-strip()                      // all neutral
+//   #stage-strip(active: "Prototyping") // highlight the stage this slide is about
+#let stage-strip(active: none, height: 2.5em) = {
+  let head = 0.7em // arrowhead width; the band stops short by this much
+  let bleed = 0.7em // band pokes out to the left of the first pill
+  let band-h = 0.58em // thin ribbon running through the middle of the pills
+  let head-h = 1.2em
+  // ponytail: head is a flat swatch of the gradient's end colour, so it reads
+  // as one shape without having to share a gradient across two elements
+  let band-end = accent.transparentize(72%)
+  // Active pill matches the "founding employee" band: pale accent, accent border.
+  let pill(name) = box(
+    width: 100%,
+    height: 2.0em,
+    radius: 0.25em,
+    fill: if name == active { accent.transparentize(82%) } else { luma(224) },
+    stroke: if name == active { 0.8pt + accent },
+  )[
+    #align(center + horizon)[
+      #text(
+        size: 0.7em,
+        weight: "bold",
+        fill: if name == active { luma(40) } else { luma(80) },
+      )[#name]
+    ]
+  ]
+
+  block(width: 100%, height: height, spacing: 0pt, breakable: false)[
+    #place(
+      left + horizon,
+      dx: -bleed,
+      box(
+        width: 100% - head + bleed,
+        height: band-h,
+        radius: (left: band-h / 2),
+        fill: gradient.linear(luma(238), band-end),
+      ),
+    )
+    #align(horizon)[
+      #grid(
+        columns: (..stages.map(_ => 1fr), head),
+        column-gutter: 0.3em,
+        align: horizon,
+        ..stages.map(pill),
+        polygon(fill: band-end, (0pt, 0pt), (head, head-h / 2), (0pt, head-h)),
+      )
+    ]
+  ]
+}
+
+// Slide wrapper that pins the strip to the top of the body. Use it instead of
+// calling `stage-strip` directly — the theme centres slide bodies vertically,
+// which would otherwise drift the strip with the amount of content below it.
+//   == Which stages you see
+//   #show: staged.with(active: "Idea")
+#let staged(active: none, gap: 0.4em, body) = {
+  set align(top)
+  stage-strip(active: active)
+  v(gap)
+  body
+}
+
 // Draft placeholder for a slide we will write together.
 // Call as `#stub(( [outcome], ... ))[optional body]` or `#stub((...))`.
 #let stub(outcomes, body) = lblock(inset: (x: 0.8em, y: 0.7em), outset: 0pt)[

@@ -1,5 +1,5 @@
 #import "@preview/touying:0.7.4": *
-#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote
+#import "/common.typ": accent, filter-card, gblock, hbar, lblock, section-quote, staged
 
 #let stage(n, title, gloss) = lblock(inset: 0.48em, outset: 0pt)[
   #text(fill: accent, weight: "bold", size: 0.7em, font: "DejaVu Sans Mono")[#n]
@@ -13,13 +13,14 @@
   #text(size: 1.3em, fill: luma(160))[→]
 ]
 
-#let band(fill, stroke: 0.55pt + luma(190)) = box(
+#let band(label, fill, stroke: 0.55pt + luma(190)) = box(
   width: 100%,
   height: 2.2em,
   fill: fill,
   radius: 0.16em,
   stroke: stroke,
-)
+  inset: (x: 0.6em),
+)[#align(horizon)[#text(size: 0.8em)[#label]]]
 
 = How firms fail
 
@@ -35,77 +36,75 @@
 
 == Startups tend to fail
 
+#let pct(n) = [
+  #text(size: 4em)[#n]#text(size: 1.0em, baseline: -1.6em)[%]
+]
+
+#let survival = grid(
+  columns: (auto, auto),
+  column-gutter: 0.45em,
+  row-gutter: 1.5em,
+  align: (right + horizon, left + horizon),
+  ..(([1 year], 20), ([3 years], 39), ([5 years], 50), ([10 years], 65))
+    .map(((l, n)) => (text(size: 1em)[#l], pct(n)))
+    .flatten()
+)
+
+#let causes = grid(
+  columns: (auto, auto),
+  column-gutter: 0.45em,
+  row-gutter: 1.0em,
+  align: (right + horizon, left + horizon),
+  ..(
+    (38, [Financial Issues]),
+    (35, [Lack of Market Need]),
+    (20, [Competition]),
+    (19, [Business Model]),
+    (18, [Legal Challenges]),
+  )
+    .map(((n, l)) => (pct(n), text(size: 1em)[#l]))
+    .flatten()
+)
+
+// ponytail: bracket measures the taller column so it tracks the chart's own height
+#let bracket(side) = context {
+  let s = 1.2pt + accent
+  box(
+    width: 0.5em,
+    height: calc.max(measure(survival).height, measure(causes).height),
+    stroke: (top: s, bottom: s) + side,
+  )
+}
+
 #grid(
-  columns: (1fr, auto, 1fr),
-  column-gutter: 0.7em,
+  columns: (auto, auto, auto, auto, auto, 1fr),
+  column-gutter: 0.6em,
   align: horizon,
-  [
-    #hbar([1 year], 20)
-    #v(0.55em)
-    #hbar([3 years], 39)
-    #v(0.55em)
-    #hbar([5 years], 50)
-    #v(0.55em)
-    #hbar([10 years], 65)
-  ],
+  align(right, survival),
+  bracket((right: 1.2pt + accent)),
+  [because],
+  bracket((left: 1.2pt + accent)),
+  align(left, causes),
+  // ponytail: aside rides in the leftover column, so the chart keeps its own metrics
   align(center)[
-    #text(size: 0.72em, fill: accent, weight: "bold", tracking: 0.06em)[BECAUSE]
-  ],
-  [
-    #hbar([Financial Issues], 38)
-    #v(0.45em)
-    #hbar([Lack of Market Need], 35)
-    #v(0.45em)
-    #hbar([Competition], 20)
-    #v(0.45em)
-    #hbar([Business Model], 19)
-    #v(0.45em)
-    #hbar([Legal Challenges], 18)
+    #uncover("2-")[
+      #gblock[_How do we de-risk these?_]
+    ]
   ],
 )
 
-#v(0.85em)
-#text(size: 0.62em, fill: luma(110))[
-  Numbers from the US. See
-  #link("https://www.forbes.com/advisor/business/software/startups-failure-rate/")[forbes.com/advisor/business/software/startups-failure-rate/].
+#align(bottom + right)[
+  #text(size: 0.62em, fill: luma(110))[
+    Numbers from the US. See
+    #link("https://www.forbes.com/advisor/business/software/startups-failure-rate/")[forbes.com/advisor/business/software/startups-failure-rate/].
+  ]
 ]
 
 #speaker-note[
   - As a startup you are always teetering between life and death
   - US numbers: one in five gone in a year, half by year five, two-thirds by year ten
   - Failure is the default, and these are the usual reasons
-]
-
-== Startups tend to fail
-
-#block(width: 78%)[
-  #hbar([Financial Issues], 38)
-  #v(0.45em)
-  #hbar([Lack of Market Need], 35)
-  #v(0.45em)
-  #hbar([Competition], 20)
-  #v(0.45em)
-  #hbar([Business Model], 19)
-  #v(0.45em)
-  #hbar([Legal Challenges], 18)
-]
-
-#v(0.95em)
-#pause
-#gblock[
-  #text(size: 1.15em)[_How do we de-risk these?_]
-]
-
-#v(0.7em)
-#text(size: 0.62em, fill: luma(110))[
-  Numbers from the US. See
-  #link("https://www.forbes.com/advisor/business/software/startups-failure-rate/")[forbes.com/advisor/business/software/startups-failure-rate/].
-]
-
-#speaker-note[
-  - Always teetering between life and death
   - Survival is predicated on assessing risks and carefully managing them
-  - This whole lecture is the toolkit to assess and de-risk these failure modes
 ]
 
 == Stages of starting up
@@ -149,77 +148,50 @@
   - We focus on the first half
 ]
 
-== Stages --- common frameworks
-
-#grid(
-  columns: (1fr, 1fr, 1fr),
-  gutter: 0.9em,
-  lblock(inset: (x: 0.75em, y: 0.95em), outset: 0pt)[
-    #text(size: 0.72em, fill: luma(100))[Howard Love]
-    #v(0.4em)
-    #text(weight: "bold", size: 1.12em)[Startup J-Curve]
-    #v(0.4em)
-    #text(size: 0.82em, fill: luma(60))[The Six Steps to Entrepreneurial Success]
-  ],
-  lblock(inset: (x: 0.75em, y: 0.95em), outset: 0pt)[
-    #text(size: 0.72em, fill: luma(100))[Max Marmer]
-    #v(0.4em)
-    #text(weight: "bold", size: 1.12em)[Startup Genome]
-    #v(0.4em)
-    #text(size: 0.82em, fill: luma(60))[Introducing the Startup Genome Project]
-  ],
-  lblock(inset: (x: 0.75em, y: 0.95em), outset: 0pt)[
-    #text(size: 0.72em, fill: luma(100))[Jason Hishmeh \& Stas Chernychko]
-    #v(0.4em)
-    #text(weight: "bold", size: 1.12em)[6 Startup Stages]
-    #v(0.4em)
-    #text(size: 0.82em, fill: luma(60))[How non-technical founders build profitable, scalable startups]
-  ],
-)
-
-#speaker-note[
-  - Common frameworks. They disagree on names and how many boxes to draw
-  - They all describe a similar journey from idea to a stable company
-]
-
 == Which stages you see
 
-#align(horizon)[
-  #text(size: 0.7em, fill: luma(100), tracking: 0.06em)[HOW BIG IS THE FIRM?]
+#show: staged.with(active: none)
 
-  #v(0.55em)
-  #grid(
-    columns: (13.6em, 1fr, 1fr, 1fr, 1fr, 1fr),
-    column-gutter: 0.32em,
-    row-gutter: 0.58em,
-    align: horizon,
-    [],
-    ..("1–5", "3–15", "15–50", "50–100", "100–1000").map(s => align(
-      center,
-      text(size: 0.78em, weight: "bold")[#s],
-    )),
+// Columns mirror `stage-strip` exactly (6 × 1fr + the arrowhead's own column),
+// so every band lines up with the stage pills above it.
+#grid(
+  columns: (1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 0.7em),
+  column-gutter: 0.3em,
+  row-gutter: 0.58em,
+  align: horizon,
+  grid.cell(colspan: 6, band([As a founder.], rgb("#e8d9c8"))),
+  [],
 
-    text(size: 0.82em)[As a founder.],
-    grid.cell(colspan: 5, band(rgb("#e8d9c8"))),
+  [],
+  [],
+  grid.cell(colspan: 3, band([As a consultant.], accent.transparentize(68%))),
+  [],
+  [],
 
-    text(size: 0.82em)[As a consultant.],
-    [],
-    grid.cell(colspan: 3, band(accent.transparentize(68%))),
-    [],
+  [],
+  [],
+  grid.cell(
+    colspan: 2,
+    band(
+      [As a founding employee\ (with equity).],
+      accent.transparentize(82%),
+      stroke: 0.8pt + accent,
+    ),
+  ),
+  grid.cell(colspan: 2, band([As an employee.], luma(228))),
+  [],
 
-    text(size: 0.82em)[As a founding employee (with equity).],
-    [],
-    grid.cell(colspan: 2, band(accent.transparentize(82%), stroke: 0.8pt + accent)),
-    [],
-    [],
+  [],
+  ..("1–5", "3–15", "15–50", "50–100", "100–1000").map(s => align(
+    center,
+    text(size: 0.78em, weight: "bold")[#s],
+  )),
+  [],
+)
 
-    text(size: 0.82em)[As an employee.],
-    [],
-    [],
-    [],
-    grid.cell(colspan: 2, band(luma(228))),
-  )
-]
+#v(0.2em)
+#text(size: 0.7em, fill: luma(100), tracking: 0.06em)[HOW BIG IS THE FIRM?]
+
 
 #speaker-note[
   - Which stages you actually see depends on when you join and in what role
