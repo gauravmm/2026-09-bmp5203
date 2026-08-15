@@ -16,7 +16,6 @@ ALLOWED = set(
     "×÷≠≈≤≥"  # MULTIPLICATION .. GREATER-THAN OR EQUAL
     "‘’“”"  # curly quotes
     "°¾¢"  # DEGREE, THREE QUARTERS, CENT
-    "\U0001f916\U0001f4a5\U0001f9e0"  # robot, collision, brain
 )
 
 
